@@ -9,9 +9,16 @@ public class LoadParallelBackground : MonoBehaviour
     public GameObject camObj;
     private Camera cam;
 
-    public List<GameObject> midViewObj; 
-    public List<GameObject> farViewObj; 
-    public List<GameObject> closeViewObj; 
+    public List<GameObject> midViewCandidates; 
+    public List<GameObject> farViewCandidates; 
+    public List<GameObject> closeViewCandidates;
+
+    public GameObject[] midViewCanvas;
+    public GameObject midviewInCamRight;
+    public GameObject midviewInCamMid;
+    public GameObject farViewInCam0;
+
+
     void Start()
     {
         if (!camObj)
@@ -22,15 +29,25 @@ public class LoadParallelBackground : MonoBehaviour
         {
             cam = camObj.GetComponent<Camera>();
         }
-        
+
         // 开始的时候， 在相机的位置初始化一些gameobj
-        
+        //midviewInCam0.GetComponent<SpriteRenderer>().sprite = midViewCandidates[0].GetComponent<SpriteRenderer>().sprite;
+        //farViewInCam0.GetComponent<SpriteRenderer>().sprite = farViewCandidates[0].GetComponent<SpriteRenderer>().sprite;
+        midViewCanvas = new GameObject[3];
+        for (int i = 0; i < 3; i++)
+        {
+            midViewCanvas[i] = Instantiate(Resources.Load("Prefab/SingleBackGroundCanvas")) as GameObject;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Debug.Log("test");
+        //Vector3 temptranspos = midviewInCam0.transform.position;
+        //temptranspos.x -= 2.5f * Time.deltaTime;
+        //midviewInCam0.transform.position = temptranspos;
 
     }
     
