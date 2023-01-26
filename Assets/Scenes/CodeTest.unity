@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 251832747}
   - component: {fileID: 251832748}
   m_Layer: 0
-  m_Name: FarViewMount
+  m_Name: farMountPointGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -718,7 +718,6 @@ GameObject:
   - component: {fileID: 395894422}
   - component: {fileID: 395894425}
   - component: {fileID: 395894426}
-  - component: {fileID: 395894427}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -859,34 +858,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &395894427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395894421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec57d18aaf791e34086f60da0e563a5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camObj: {fileID: 395894421}
-  midViewCandidates:
-  - {fileID: 2112016893}
-  - {fileID: 1946925161}
-  - {fileID: 514137318}
-  - {fileID: 262806255}
-  farViewCandidates:
-  - {fileID: 335614665}
-  - {fileID: 1614688474}
-  - {fileID: 1800663112}
-  - {fileID: 1602973736}
-  closeViewCandidates: []
-  midViewCanvas: []
-  midviewInCamRight: {fileID: 0}
-  midviewInCamMid: {fileID: 0}
-  farViewInCam0: {fileID: 251832746}
 --- !u!1 &460682197
 GameObject:
   m_ObjectHideFlags: 0
@@ -6824,7 +6795,7 @@ GameObject:
   - component: {fileID: 1603551095}
   - component: {fileID: 1603551096}
   m_Layer: 0
-  m_Name: MidViewMount
+  m_Name: midMountPointGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6976,6 +6947,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1642793996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1642793998}
+  - component: {fileID: 1642793997}
+  m_Layer: 0
+  m_Name: BackGroundCanvasManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1642793997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642793996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec57d18aaf791e34086f60da0e563a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camObj: {fileID: 0}
+  midViewCanvas: []
+  midViewSprites: []
+  midCanvasMoveSpeed: 10
+  farCanvasMoveSpeed: 5
+  midMountPointGO: {fileID: 1603551094}
+  farMountPointGO: {fileID: 251832746}
+  canvasPrefabKey: SingleBackGroundCanvas
+  midViewSpritesKey:
+  - mq_midCityView_1
+  - mq_midCityView_2
+  - mq_midCityView_3
+  - mq_midCityView_4
+--- !u!4 &1642793998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642793996}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645687737
 GameObject:

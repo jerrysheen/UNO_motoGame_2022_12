@@ -22,16 +22,16 @@ public class MotoController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (keyBoardInputMovement == 0.0f)
-        {
-            backWheelController.useMotor = false;
-        }
-        else
-        {
-            backWheelController.useMotor = true;
-            JointMotor2D motor = new JointMotor2D() {motorSpeed = keyBoardInputMovement, maxMotorTorque = 100000};
-            backWheelController.motor = motor;
-        }
+        // if (keyBoardInputMovement == 0.0f)
+        // {
+        //     backWheelController.useMotor = false;
+        // }
+        // else
+        // {
+        //     backWheelController.useMotor = true;
+        //     JointMotor2D motor = new JointMotor2D() {motorSpeed = keyBoardInputMovement, maxMotorTorque = 100000};
+        //     backWheelController.motor = motor;
+        // }
         
     }
 }

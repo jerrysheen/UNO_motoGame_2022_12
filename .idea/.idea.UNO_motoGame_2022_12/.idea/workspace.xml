@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a67efa93-f155-422b-b366-605b592dd412" name="Default Changelist" comment="" />
+    <list default="true" id="a67efa93-f155-422b-b366-605b592dd412" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView01.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView01.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView02.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView02.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView03.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView03.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView04.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/1CityView04.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView1.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView1.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView2.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView2.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView3.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView3.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView4.psd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/BackGround/CityView4.psd.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/MotoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/MotoController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
+      <option value="$PROJECT_DIR$/Assets/Scripts/GamePlay/MotoController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
     </changedPaths>
   </component>
@@ -18,9 +47,12 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -52,8 +84,12 @@
       <updated>1673358169597</updated>
       <workItem from="1673358173696" duration="3287000" />
       <workItem from="1673875352235" duration="1084000" />
+      <workItem from="1674127093742" duration="14720000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
