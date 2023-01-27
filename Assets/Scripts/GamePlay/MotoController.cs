@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class MotoController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public WheelJoint2D backWheelController;
 
-    public float speed = 1000;
     public float keyBoardInputMovement;
     void Start()
     {
