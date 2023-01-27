@@ -33,6 +33,22 @@ MonoBehaviour:
     m_Address: mq_midCityView_4
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1641bb790fdc83a448ac951be4971cb5
+    m_Address: mq_farCityView_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c58be6c24dcded141b950484f966bfe4
+    m_Address: mq_farCityView_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 59cde1e5c30fb2142a9696be5f313e2d
+    m_Address: mq_farCityView_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3e56e6955b3f6384bbf9395a7d7d8b3b
+    m_Address: mq_farCityView_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1b4081c370bc344a3b90744755299c88, type: 2}
   m_SchemaSet:

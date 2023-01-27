@@ -14,7 +14,11 @@ public class LoadParallelBackground : MonoBehaviour
 
 
     public GameObject[] midViewCanvas;
+    public GameObject[] farViewCanvas;
+
+
     public Sprite[] midViewSprites;
+    public Sprite[] farViewSprites;
 
     [Header("Move Speed")] 
     [Space]
@@ -28,8 +32,14 @@ public class LoadParallelBackground : MonoBehaviour
     public GameObject farMountPointGO;
     
     
-    public string canvasPrefabKey = "SingleBackGroundCanvas";
+
+    [Space]
+    [Header("Addressable Key Config")]
+    [Space]
     public List<string> midViewSpritesKey;
+    public List<string> farViewSpritesKey;
+    public string canvasPrefabKey = "SingleBackGroundCanvas";
+
     AsyncOperationHandle<GameObject> opHandle;
     AsyncOperationHandle<Sprite> opSpriteHandle;
 
@@ -51,6 +61,7 @@ public class LoadParallelBackground : MonoBehaviour
 
         // Load Canvas Prefab;
         midViewCanvas = new GameObject[3];
+        farViewCanvas = new GameObject[3];
         opHandle = Addressables.LoadAssetAsync<GameObject>(canvasPrefabKey);
         yield return opHandle;
 
@@ -61,6 +72,7 @@ public class LoadParallelBackground : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 midViewCanvas[i] = Instantiate(obj);
+                farViewCanvas[i] = Instantiate(obj);
             }
         }
         else
@@ -119,6 +131,59 @@ public class LoadParallelBackground : MonoBehaviour
         midViewCanvas[0].transform.position = new Vector3(midMountPoint.x - 2 * width, midMountPoint.y, midMountPoint.z);
         midViewCanvas[1].transform.position = new Vector3(midMountPoint.x , midMountPoint.y, midMountPoint.z);
         midViewCanvas[2].transform.position = new Vector3(midMountPoint.x + 2 * width, midMountPoint.y, midMountPoint.z);
+
+
+        // farview set:
+
+        if (farViewSpritesKey == null || farViewSpritesKey.Count == 0)
+        {
+            tempCount = 0;
+        }
+        else
+        {
+            tempCount = farViewSpritesKey.Count;
+        }
+
+        farViewSprites = new Sprite[tempCount];
+        for (int i = 0; i < tempCount; i++)
+        {
+            opSpriteHandle = Addressables.LoadAssetAsync<Sprite>(farViewSpritesKey[i]);
+            yield return opSpriteHandle;
+
+            if (opSpriteHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                farViewSprites[i] = opSpriteHandle.Result;
+            }
+            else
+            {
+                Debug.LogError("cant find" + opSpriteHandle.DebugName);
+            }
+        }
+
+        // Assign random sprite to Canvas.
+        for (int i = 0; i < 3; i++)
+        {
+            if (tempCount != 0)
+            {
+                int randNum = Random.Range(0, tempCount + 1);
+                randNum = randNum == 4 ? 3 : randNum;
+                Debug.Log(randNum);
+                farViewCanvas[i].GetComponent<SpriteRenderer>().sprite = farViewSprites[randNum];
+            }
+        }
+
+        // set init place.   left / mid / right.
+
+        width = farViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        if (!farMountPointGO)
+        {
+            Debug.LogError("Please assign mid mount point gameobj");
+        }
+
+        Vector3 farMountPoint = farMountPointGO.transform.position;
+        farViewCanvas[0].transform.position = new Vector3(farMountPoint.x - 2 * width, farMountPoint.y, farMountPoint.z);
+        farViewCanvas[1].transform.position = new Vector3(farMountPoint.x, farMountPoint.y, farMountPoint.z);
+        farViewCanvas[2].transform.position = new Vector3(farMountPoint.x + 2 * width, farMountPoint.y, farMountPoint.z);
     }
     
     // void Start()
@@ -156,6 +221,13 @@ public class LoadParallelBackground : MonoBehaviour
             Vector3 tempPos = midViewCanvas[i].transform.position;
             midViewCanvas[i].transform.position = tempPos + Vector3.left * midCanvasMoveSpeed * Time.deltaTime;
         }
+
+        // far canvas.
+        for (int i = 0; i < farViewCanvas.Length; i++)
+        {
+            Vector3 tempPos = farViewCanvas[i].transform.position;
+            farViewCanvas[i].transform.position = tempPos + Vector3.left * farCanvasMoveSpeed * Time.deltaTime;
+        }
     }
 
 
@@ -188,7 +260,27 @@ public class LoadParallelBackground : MonoBehaviour
             Debug.Log(randNum);
             midViewCanvas[2].GetComponent<SpriteRenderer>().sprite = midViewSprites[randNum];
         }
-        
+
+        // far canvas:
+        // [0] will always be the most left one.
+        width = farViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        tempPos = farViewCanvas[0].transform.position;
+        if (tempPos.x + width < xMin)
+        {
+            // swap and move..
+            GameObject temp = farViewCanvas[0];
+            farViewCanvas[0] = farViewCanvas[1];
+            farViewCanvas[1] = farViewCanvas[2];
+            farViewCanvas[2] = temp;
+            farViewCanvas[2].transform.position = farViewCanvas[1].transform.position + Vector3.right * 2.0f * width;
+
+            // refresh canvas pic.
+            int randNum = Random.Range(0, 100);
+            randNum = randNum % midViewSpritesKey.Count;
+            Debug.Log(randNum);
+            farViewCanvas[2].GetComponent<SpriteRenderer>().sprite = farViewSprites[randNum];
+        }
+
     }
 
 

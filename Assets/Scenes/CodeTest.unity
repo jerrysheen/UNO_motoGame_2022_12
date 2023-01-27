@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6979,17 +6979,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camObj: {fileID: 0}
   midViewCanvas: []
+  farViewCanvas: []
   midViewSprites: []
+  farViewSprites: []
   midCanvasMoveSpeed: 10
-  farCanvasMoveSpeed: 5
+  farCanvasMoveSpeed: 15
   midMountPointGO: {fileID: 1603551094}
   farMountPointGO: {fileID: 251832746}
-  canvasPrefabKey: SingleBackGroundCanvas
   midViewSpritesKey:
   - mq_midCityView_1
   - mq_midCityView_2
   - mq_midCityView_3
   - mq_midCityView_4
+  farViewSpritesKey:
+  - mq_farCityView_1
+  - mq_farCityView_2
+  - mq_farCityView_3
+  - mq_farCityView_4
+  canvasPrefabKey: SingleBackGroundCanvas
 --- !u!4 &1642793998
 Transform:
   m_ObjectHideFlags: 0
