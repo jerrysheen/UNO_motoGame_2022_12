@@ -15,21 +15,25 @@ public class LoadParallelBackground : MonoBehaviour
 
     public GameObject[] midViewCanvas;
     public GameObject[] farViewCanvas;
+    public GameObject[] backGroundViewCanvas;
 
 
     public Sprite[] midViewSprites;
     public Sprite[] farViewSprites;
+    public Sprite[] backGroundViewSprites;
 
     [Header("Move Speed")] 
     [Space]
     public float midCanvasMoveSpeed = 3.0f;
     public float farCanvasMoveSpeed = 5.0f;    
+    public float backGroundCanvasMoveSpeed = 5.0f;    
 
     [Space]
     [Header("Mount Point")] 
     [Space]
     public GameObject midMountPointGO;
     public GameObject farMountPointGO;
+    public GameObject backGroundMountPointGO;
     
     
 
@@ -38,6 +42,7 @@ public class LoadParallelBackground : MonoBehaviour
     [Space]
     public List<string> midViewSpritesKey;
     public List<string> farViewSpritesKey;
+    public List<string> backGroundViewSpritesKey;
     public string canvasPrefabKey = "SingleBackGroundCanvas";
 
     AsyncOperationHandle<GameObject> opHandle;
@@ -62,6 +67,7 @@ public class LoadParallelBackground : MonoBehaviour
         // Load Canvas Prefab;
         midViewCanvas = new GameObject[3];
         farViewCanvas = new GameObject[3];
+        backGroundViewCanvas = new GameObject[3];
         opHandle = Addressables.LoadAssetAsync<GameObject>(canvasPrefabKey);
         yield return opHandle;
 
@@ -73,6 +79,7 @@ public class LoadParallelBackground : MonoBehaviour
             {
                 midViewCanvas[i] = Instantiate(obj);
                 farViewCanvas[i] = Instantiate(obj);
+                backGroundViewCanvas[i] = Instantiate(obj);
             }
         }
         else
@@ -184,6 +191,59 @@ public class LoadParallelBackground : MonoBehaviour
         farViewCanvas[0].transform.position = new Vector3(farMountPoint.x - 2 * width, farMountPoint.y, farMountPoint.z);
         farViewCanvas[1].transform.position = new Vector3(farMountPoint.x, farMountPoint.y, farMountPoint.z);
         farViewCanvas[2].transform.position = new Vector3(farMountPoint.x + 2 * width, farMountPoint.y, farMountPoint.z);
+        
+        
+        // backGroundview set:
+
+        if (backGroundViewSpritesKey == null || backGroundViewSpritesKey.Count == 0)
+        {
+            tempCount = 0;
+        }
+        else
+        {
+            tempCount = backGroundViewSpritesKey.Count;
+        }
+
+        backGroundViewSprites = new Sprite[tempCount];
+        for (int i = 0; i < tempCount; i++)
+        {
+            opSpriteHandle = Addressables.LoadAssetAsync<Sprite>(backGroundViewSpritesKey[i]);
+            yield return opSpriteHandle;
+
+            if (opSpriteHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                backGroundViewSprites[i] = opSpriteHandle.Result;
+            }
+            else
+            {
+                Debug.LogError("cant find" + opSpriteHandle.DebugName);
+            }
+        }
+
+        // Assign random sprite to Canvas.
+        for (int i = 0; i < 3; i++)
+        {
+            if (tempCount != 0)
+            {
+                int randNum = Random.Range(0, tempCount + 1);
+                randNum = randNum == 4 ? 3 : randNum;
+                Debug.Log(randNum);
+                backGroundViewCanvas[i].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
+            }
+        }
+
+        // set init place.   left / mid / right.
+
+        width = backGroundViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        if (!backGroundMountPointGO)
+        {
+            Debug.LogError("Please assign mid mount point gameobj");
+        }
+
+        Vector3 backGroundMountPoint = backGroundMountPointGO.transform.position;
+        backGroundViewCanvas[0].transform.position = new Vector3(backGroundMountPoint.x - 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
+        backGroundViewCanvas[1].transform.position = new Vector3(backGroundMountPoint.x, backGroundMountPoint.y, backGroundMountPoint.z);
+        backGroundViewCanvas[2].transform.position = new Vector3(backGroundMountPoint.x + 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
     }
     
     // void Start()
@@ -227,6 +287,12 @@ public class LoadParallelBackground : MonoBehaviour
         {
             Vector3 tempPos = farViewCanvas[i].transform.position;
             farViewCanvas[i].transform.position = tempPos + Vector3.left * farCanvasMoveSpeed * Time.deltaTime;
+        }
+        
+        for (int i = 0; i < backGroundViewCanvas.Length; i++)
+        {
+            Vector3 tempPos = backGroundViewCanvas[i].transform.position;
+            backGroundViewCanvas[i].transform.position = tempPos + Vector3.left * backGroundCanvasMoveSpeed * Time.deltaTime;
         }
     }
 
