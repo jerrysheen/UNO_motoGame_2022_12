@@ -121,7 +121,7 @@ public class LoadParallelBackground : MonoBehaviour
             {
                 int randNum = Random.Range(0,tempCount + 1);
                 randNum = randNum == 4 ? 3 : randNum;
-                Debug.Log(randNum);
+//                Debug.Log(randNum);
                 midViewCanvas[i].GetComponent<SpriteRenderer>().sprite = midViewSprites[randNum];
             }
         }
@@ -174,7 +174,7 @@ public class LoadParallelBackground : MonoBehaviour
             {
                 int randNum = Random.Range(0, tempCount + 1);
                 randNum = randNum == 4 ? 3 : randNum;
-                Debug.Log(randNum);
+//                Debug.Log(randNum);
                 farViewCanvas[i].GetComponent<SpriteRenderer>().sprite = farViewSprites[randNum];
             }
         }
@@ -323,7 +323,7 @@ public class LoadParallelBackground : MonoBehaviour
             // refresh canvas pic.
             int randNum = Random.Range(0, 100);
             randNum = randNum % midViewSpritesKey.Count;
-            Debug.Log(randNum);
+//            Debug.Log(randNum);
             midViewCanvas[2].GetComponent<SpriteRenderer>().sprite = midViewSprites[randNum];
         }
 
@@ -342,9 +342,29 @@ public class LoadParallelBackground : MonoBehaviour
 
             // refresh canvas pic.
             int randNum = Random.Range(0, 100);
-            randNum = randNum % midViewSpritesKey.Count;
+            randNum = randNum % farViewSpritesKey.Count;
             Debug.Log(randNum);
             farViewCanvas[2].GetComponent<SpriteRenderer>().sprite = farViewSprites[randNum];
+        }
+        
+        // far canvas:
+        // [0] will always be the most left one.
+        width = backGroundViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        tempPos = backGroundViewCanvas[0].transform.position;
+        if (tempPos.x + width < xMin)
+        {
+            // swap and move..
+            GameObject temp = backGroundViewCanvas[0];
+            backGroundViewCanvas[0] = backGroundViewCanvas[1];
+            backGroundViewCanvas[1] = backGroundViewCanvas[2];
+            backGroundViewCanvas[2] = temp;
+            backGroundViewCanvas[2].transform.position = backGroundViewCanvas[1].transform.position + Vector3.right * 2.0f * width;
+
+            // refresh canvas pic.
+            int randNum = Random.Range(0, 100);
+            randNum = randNum % backGroundViewSpritesKey.Count;
+            Debug.Log(randNum);
+            backGroundViewCanvas[2].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
         }
 
     }
