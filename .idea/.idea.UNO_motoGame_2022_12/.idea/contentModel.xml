@@ -10,6 +10,7 @@
         <e p="CollectableItem.cs" t="Include" />
         <e p="GameScoreManager.cs" t="Include" />
         <e p="GameSpeedManager.cs" t="Include" />
+        <e p="GoToNextScene.cs" t="Include" />
         <e p="LanePoint.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="GamePlay" t="Include">
