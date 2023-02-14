@@ -793,7 +793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 481964114388909443, guid: ead66ec0a8ad85e4bbde01caa2f019fe, type: 3}
       propertyPath: NextSceneName
-      value: CutScene1
+      value: CodeTest
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ead66ec0a8ad85e4bbde01caa2f019fe, type: 3}
