@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - BackGround
+  - 
   - Water
   - UI
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: FarView
     uniqueID: 1632417801
+    locked: 0
+  - name: Reflection
+    uniqueID: 1253828475
     locked: 0
   - name: MidView
     uniqueID: 2618973987

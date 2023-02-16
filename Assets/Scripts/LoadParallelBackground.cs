@@ -44,6 +44,7 @@ public class LoadParallelBackground : MonoBehaviour
     public List<string> farViewSpritesKey;
     public List<string> backGroundViewSpritesKey;
     public string canvasPrefabKey = "SingleBackGroundCanvas";
+    public string BackgroundCanvasPrefabKey = "SingleBackGroundCanvas";
 
     AsyncOperationHandle<GameObject> opHandle;
     AsyncOperationHandle<Sprite> opSpriteHandle;
@@ -78,8 +79,10 @@ public class LoadParallelBackground : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 midViewCanvas[i] = Instantiate(obj);
-                farViewCanvas[i] = Instantiate(obj);
+                farViewCanvas[i] = Instantiate (obj);
                 backGroundViewCanvas[i] = Instantiate(obj);
+                int defaultLayer = LayerMask.NameToLayer("Default");
+                backGroundViewCanvas[i].layer = defaultLayer;
             }
         }
         else
@@ -87,6 +90,27 @@ public class LoadParallelBackground : MonoBehaviour
             Debug.LogError("cant find ");
         }
 
+        // opHandle = Addressables.LoadAssetAsync<GameObject>(BackgroundCanvasPrefabKey);
+        // yield return opHandle;
+        //
+        // if (opHandle.Status == AsyncOperationStatus.Succeeded)
+        // {
+        //     GameObject obj = opHandle.Result;
+        //     //Instantiate(obj, transform);
+        //     for (int i = 0; i < 3; i++)
+        //     {
+        //         midViewCanvas[i] = Instantiate(obj);
+        //         farViewCanvas[i] = (GameObject) Instantiate (obj);
+        //         int defaultLayer = LayerMask.NameToLayer("Default");
+        //         farViewCanvas[i].layer = defaultLayer;
+        //         backGroundViewCanvas[i] = Instantiate(obj);
+        //     }
+        // }
+        // else
+        // {
+        //     Debug.LogError("cant find ");
+        // }
+        
         // Load Sprite Key:
         int tempCount;
         if (midViewSpritesKey == null || midViewSpritesKey.Count == 0)

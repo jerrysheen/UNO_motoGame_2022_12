@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: SingleBackGroundCanvas
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: deeed0fc2bb450447b9e1e4cecae08bc
+    m_Address: SingleBackGroundCanvas_BackGround
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1b4081c370bc344a3b90744755299c88, type: 2}
   m_SchemaSet:

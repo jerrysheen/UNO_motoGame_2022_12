@@ -29,8 +29,8 @@
       <option value="$PROJECT_DIR$/Assets/SingletonMono.cs" />
       <option value="$PROJECT_DIR$/Assets/GameScoreManager.cs" />
       <option value="$PROJECT_DIR$/Assets/CollectableItem.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
       <option value="$PROJECT_DIR$/Assets/GoToNextScene.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2K8ZSEDpzRFFZO1tk0rilKqd9zY" />
@@ -81,7 +81,8 @@
       <workItem from="1674910796758" duration="9257000" />
       <workItem from="1675688914402" duration="1294000" />
       <workItem from="1675775095536" duration="1389000" />
-      <workItem from="1676292606186" duration="1951000" />
+      <workItem from="1676292606186" duration="3143000" />
+      <workItem from="1676554602832" duration="795000" />
     </task>
     <servers />
   </component>

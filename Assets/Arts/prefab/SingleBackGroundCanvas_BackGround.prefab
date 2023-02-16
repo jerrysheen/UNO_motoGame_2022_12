@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8932849725395968614}
   - component: {fileID: 3111773852657656316}
-  m_Layer: 4
-  m_Name: SingleBackGroundCanvas
+  m_Layer: 0
+  m_Name: SingleBackGroundCanvas_BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
