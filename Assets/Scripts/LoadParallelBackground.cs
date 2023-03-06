@@ -318,6 +318,8 @@ public class LoadParallelBackground : MonoBehaviour
         // mid canvas.
         for (int i = 0; i < midViewCanvas.Length; i++)
         {
+            // in case the canvas is on loading
+            if (midViewCanvas[i] == null) continue;
             Vector3 tempPos = midViewCanvas[i].transform.position;
             midViewCanvas[i].transform.position = tempPos + Vector3.left * midCanvasMoveSpeed * Time.deltaTime;
         }
@@ -325,12 +327,16 @@ public class LoadParallelBackground : MonoBehaviour
         // far canvas.
         for (int i = 0; i < farViewCanvas.Length; i++)
         {
+            // in case the canvas is on loading
+            if (farViewCanvas[i] == null) continue;
             Vector3 tempPos = farViewCanvas[i].transform.position;
             farViewCanvas[i].transform.position = tempPos + Vector3.left * farCanvasMoveSpeed * Time.deltaTime;
         }
         
         for (int i = 0; i < backGroundViewCanvas.Length; i++)
         {
+            // in case the canvas is on loading
+            if (backGroundViewCanvas[i] == null) continue;
             Vector3 tempPos = backGroundViewCanvas[i].transform.position;
             backGroundViewCanvas[i].transform.position = tempPos + Vector3.left * backGroundCanvasMoveSpeed * Time.deltaTime;
         }

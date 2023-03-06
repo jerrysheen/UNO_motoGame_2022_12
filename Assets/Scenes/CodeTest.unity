@@ -1646,17 +1646,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamePlatform: {fileID: 1104456542}
-  cutSceneMountPoint: {fileID: 376345926}
   cutSceneCanvas: []
   cutSceneSprites: []
-  isCutScene: 0
-  cutSceneCanvasMoveSpeed: 0
+  isCutScene: 1
+  cutSceneCanvasMoveSpeed: 15
   cutSceneSpritesKey:
   - mq_cutScene00
   - mq_cutScene00
   - mq_cutScene00
   - mq_cutScene00
-  cutSceneMountPointGO: {fileID: 0}
+  cutSceneMountPointGO: {fileID: 376345926}
   canvasPrefabKey: SingleBackGroundCanvas
 --- !u!4 &885841571
 Transform:

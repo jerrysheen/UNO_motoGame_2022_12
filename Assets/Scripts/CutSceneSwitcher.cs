@@ -5,20 +5,33 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 public class CutSceneSwitcher : MonoBehaviour
 {
-    public GameObject gamePlatform;
-    public GameObject cutSceneMountPoint;
+    public enum Story_Process 
+    {
+        CutScene00,
+        Mission_CollectCoin,
+        CutScene01,
+        Mission_DodgeMine,
+        CutScene02,
+        Normal_Game
+    }
+
+    public GameObject collectCoin_Platform;
+    public GameObject dodgeMine_Platform;
+    public GameObject normalGame_Platform;
 
     [Space] 
     [Header("Cut Scene")] 
     public GameObject[] cutSceneCanvas;
     public Sprite[] cutSceneSprites;
     public bool isCutScene = false;
-    public float cutSceneCanvasMoveSpeed;
-    private bool startPlayCutScene = false;
+    public float cutSceneCanvasMoveSpeed = 10.0f;
+    private bool isSwitchingScene = false;
+    private bool lastIsCutScene = false;
     public List<string> cutSceneSpritesKey;
     public GameObject cutSceneMountPointGO;
     public string canvasPrefabKey = "SingleBackGroundCanvas";
-        
+    public Story_Process currProcess;    
+    
     AsyncOperationHandle<GameObject> opHandle;
     AsyncOperationHandle<Sprite> opSpriteHandle;
     /// <summary>
@@ -63,7 +76,9 @@ public class CutSceneSwitcher : MonoBehaviour
 
         if (isCutScene)
         {
-            gamePlatform.SetActive(false);
+            collectCoin_Platform.SetActive(false);
+            dodgeMine_Platform.SetActive(false);
+            normalGame_Platform.SetActive(false);
             // Load Sprite Key:
             int tempCount;
             if (cutSceneSpritesKey == null || cutSceneSpritesKey.Count == 0)
@@ -108,17 +123,19 @@ public class CutSceneSwitcher : MonoBehaviour
             float width = cutSceneCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
             if (cutSceneMountPointGO == null)
             {
-                Debug.LogError("Please assign mid mount point gameobj");
+                Debug.LogError("Please assign cutSceneMountPointGO mount point gameobj");
             }
 
             var cutSceneMountPoint = cutSceneMountPointGO.transform.position;
             cutSceneCanvas[0].transform.position = new Vector3(cutSceneMountPoint.x - 2 * width, cutSceneMountPoint.y, cutSceneMountPoint.z);
             cutSceneCanvas[1].transform.position = new Vector3(cutSceneMountPoint.x , cutSceneMountPoint.y, cutSceneMountPoint.z);
             cutSceneCanvas[2].transform.position = new Vector3(cutSceneMountPoint.x + 2 * width, cutSceneMountPoint.y, cutSceneMountPoint.z);
-            
+
+            currProcess = Story_Process.CutScene00;
+            lastIsCutScene = isCutScene;
         }
 
-        startPlayCutScene = true;
+        isSwitchingScene = false;
 
         #endregion
     }
@@ -133,9 +150,10 @@ public class CutSceneSwitcher : MonoBehaviour
     void Update()
     {
 
-        SwitchCutScene();
         // scrolling canvas here aloneside x axis, using mid point to decide whether curr canvas is out side of the screen .
         ScrollMidCanvas();
+        
+        SwitchCutScene();
         // remove useless canvas, then active one inmediately..
         refreshCanvas();
 
@@ -143,14 +161,35 @@ public class CutSceneSwitcher : MonoBehaviour
 
     public void SwitchCutScene()
     {
-        if (isCutScene)
+        if (lastIsCutScene != isCutScene || isSwitchingScene)
         {
-            if (startPlayCutScene) return;
-            
-        }
-        else
-        {
-            
+            // this means we are first frame switch our cutScnee;
+            if (lastIsCutScene != isCutScene)
+            {
+                if (isCutScene)
+                {
+                    
+                }
+                else
+                {
+                    // 这里非常简单， 如果不是cutScene， 那么只需要把Platform的头接在这边就好了。
+                    switch (currProcess)
+                    {
+                        case Story_Process.CutScene00:
+                            
+                            currProcess = Story_Process.Mission_CollectCoin;
+                            break;
+                        case Story_Process.CutScene01:
+                            currProcess = Story_Process.Mission_DodgeMine;
+                            break;
+                        case Story_Process.CutScene02:
+                            currProcess = Story_Process.Normal_Game;
+                            break;
+                    }
+                }
+            }
+            isSwitchingScene = true;
+            lastIsCutScene = isCutScene;
         }
     }
 
@@ -171,8 +210,11 @@ public class CutSceneSwitcher : MonoBehaviour
         {
             for (int i = 0; i < cutSceneCanvas.Length; i++)
             {
+                // in case the canvas is on loading
+                if (cutSceneCanvas[i] == null) continue;
                 Vector3 tempPos = cutSceneCanvas[i].transform.position;
                 cutSceneCanvas[i].transform.position = tempPos + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
+                Debug.Log((Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime).x);
             }
         }
 
@@ -192,7 +234,7 @@ public class CutSceneSwitcher : MonoBehaviour
         // [0] will always be the most left one.
         float width = cutSceneCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
         Vector3 tempPos = cutSceneCanvas[0].transform.position;
-        if (isCutScene && startPlayCutScene)
+        if (isCutScene )
         {
             if (tempPos.x + width < xMin)
             {

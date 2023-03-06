@@ -31,8 +31,8 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
         if (UIManager.getInstance != null)
         {
             UIManager.getInstance.RemoveUI(this);
+            GameScoreManager.getInstance.OnScoreValueChange -= OnScoreChange;
         }
-        GameScoreManager.getInstance.OnScoreValueChange -= OnScoreChange;
     }
 
     // Update is called once per frame

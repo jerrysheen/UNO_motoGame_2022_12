@@ -37,8 +37,6 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Resources/Component/UIManager/SystemManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -57,9 +55,9 @@
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UIManager/UIManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/UIDialoguePanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/DialogueTrigger.cs" />
-      <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/GameSpeedManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" />
     </changedPaths>
   </component>
@@ -118,6 +116,7 @@
       <workItem from="1677311917225" duration="21000" />
       <workItem from="1677311957992" duration="3124000" />
       <workItem from="1677327948260" duration="17808000" />
+      <workItem from="1678107000696" duration="3012000" />
     </task>
     <servers />
   </component>
