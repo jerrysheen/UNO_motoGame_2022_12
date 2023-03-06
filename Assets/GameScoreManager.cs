@@ -10,7 +10,8 @@ namespace Manager
 public class GameScoreManager :  SingletonMono<GameScoreManager>
 {
         //public static event Action<int> onGameStateChanged;
-        public float score = 0;
+        public Action<int> OnScoreValueChange; 
+        public int score = 0;
         protected override void Awake()
         {
             base.Awake();
@@ -18,7 +19,7 @@ public class GameScoreManager :  SingletonMono<GameScoreManager>
             score = 0;
         }
 
-        public void ColliderWithSomeThing(CollectableItemType type, float value)
+        public void ColliderWithSomeThing(CollectableItemType type, int value)
         {
             switch (type)
             {
@@ -31,14 +32,15 @@ public class GameScoreManager :  SingletonMono<GameScoreManager>
             }
         }
 
-        private void DealWithCoin(float value)
+        private void DealWithCoin(int value)
         {
             score += value;
+            OnScoreValueChange(value);
         }
         
-        private void DealWithMine(float value)
+        private void DealWithMine(int value)
         {
-            
+            OnScoreValueChange(-value);
         }
 
 }

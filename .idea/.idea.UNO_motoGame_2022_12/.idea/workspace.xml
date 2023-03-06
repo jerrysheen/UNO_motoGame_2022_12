@@ -4,8 +4,21 @@
     <list default="true" id="a67efa93-f155-422b-b366-605b592dd412" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Texture.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Texture.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/renderTexture/New Render Texture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/renderTexture/New Render Texture.renderTexture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/texture/Player/car.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/texture/Player/car.psd.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CollectableItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CollectableItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameScoreManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/GameSpeedManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameSpeedManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/Water.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/Water.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/MidView/wheels.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Textures/MidView/wheels.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GamePlay/MotoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GamePlay/MotoController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Renderer.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,22 +28,39 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/LanePoint.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/GameScoreManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/CollectableItem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/Component/UIManager/SystemManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/GameSpeedManager.cs" />
       <option value="$PROJECT_DIR$/Assets/LanePoint.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GamePlay/MotoController.cs" />
       <option value="$PROJECT_DIR$/Assets/UIManager.cs" />
       <option value="$PROJECT_DIR$/Assets/SingletonMono.cs" />
+      <option value="$PROJECT_DIR$/Assets/GoToNextScene.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" />
       <option value="$PROJECT_DIR$/Assets/GameScoreManager.cs" />
       <option value="$PROJECT_DIR$/Assets/CollectableItem.cs" />
-      <option value="$PROJECT_DIR$/Assets/GoToNextScene.cs" />
+      <option value="$PROJECT_DIR$/Assets/ScoreUI.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/UIManager/SystemManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/SingleDialogue.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/UIManager/UIManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/UIDialoguePanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/DialogueTrigger.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" />
+      <option value="$PROJECT_DIR$/Assets/GameSpeedManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2K8ZSEDpzRFFZO1tk0rilKqd9zY" />
@@ -83,6 +113,11 @@
       <workItem from="1675775095536" duration="1389000" />
       <workItem from="1676292606186" duration="3143000" />
       <workItem from="1676554602832" duration="795000" />
+      <workItem from="1676592624222" duration="1043000" />
+      <workItem from="1677306804068" duration="1341000" />
+      <workItem from="1677311917225" duration="21000" />
+      <workItem from="1677311957992" duration="3124000" />
+      <workItem from="1677327948260" duration="17808000" />
     </task>
     <servers />
   </component>

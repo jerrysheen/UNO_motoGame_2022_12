@@ -53,6 +53,10 @@ MonoBehaviour:
     m_Address: mq_Background
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ca1e5eb9fe1265947868d2ce3394cd7b
+    m_Address: mq_cutScene00
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1b4081c370bc344a3b90744755299c88, type: 2}
   m_SchemaSet:

@@ -14,7 +14,7 @@ public class CollectableItem : MonoBehaviour
 {
     public CollectableItemType itemType;
     public string otherColliderName = "player";
-    public float damageValue = 0.0f;
+    public  int damageValue = 0;
 
     public bool disableAfterCollision = true;
     // Start is called before the first frame update

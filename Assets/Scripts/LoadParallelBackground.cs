@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -12,6 +13,7 @@ public class LoadParallelBackground : MonoBehaviour
     public GameObject camObj;
     private Camera cam;
 
+    
 
     public GameObject[] midViewCanvas;
     public GameObject[] farViewCanvas;
@@ -49,6 +51,7 @@ public class LoadParallelBackground : MonoBehaviour
     AsyncOperationHandle<GameObject> opHandle;
     AsyncOperationHandle<Sprite> opSpriteHandle;
 
+    
     /// <summary>
     /// 为什么这个地方要用ienumrator, 主要是为了初始化的时候能够开一个协程，等待载入，以及做出一些处理。
     /// Start函数没有这个功能。
@@ -65,6 +68,7 @@ public class LoadParallelBackground : MonoBehaviour
             cam = camObj.GetComponent<Camera>();
         }
 
+        #region Canvas Init
         // Load Canvas Prefab;
         midViewCanvas = new GameObject[3];
         farViewCanvas = new GameObject[3];
@@ -75,12 +79,16 @@ public class LoadParallelBackground : MonoBehaviour
         if (opHandle.Status == AsyncOperationStatus.Succeeded)
         {
             GameObject obj = opHandle.Result;
+            var oldOrder = obj.GetComponent<SpriteRenderer>().sortingOrder; 
             //Instantiate(obj, transform);
             for (int i = 0; i < 3; i++)
             {
                 midViewCanvas[i] = Instantiate(obj);
+                midViewCanvas[i].name = "midCanvas";
                 farViewCanvas[i] = Instantiate (obj);
+                farViewCanvas[i].name = "farViewCanvas";
                 backGroundViewCanvas[i] = Instantiate(obj);
+                backGroundViewCanvas[i].name = "backGroundViewCanvas";
                 int defaultLayer = LayerMask.NameToLayer("Default");
                 backGroundViewCanvas[i].layer = defaultLayer;
             }
@@ -268,6 +276,13 @@ public class LoadParallelBackground : MonoBehaviour
         backGroundViewCanvas[0].transform.position = new Vector3(backGroundMountPoint.x - 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
         backGroundViewCanvas[1].transform.position = new Vector3(backGroundMountPoint.x, backGroundMountPoint.y, backGroundMountPoint.z);
         backGroundViewCanvas[2].transform.position = new Vector3(backGroundMountPoint.x + 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
+        #endregion
+
+        #region Load Cut Scene OR Begin Play
+
+
+
+        #endregion
     }
     
     // void Start()
@@ -280,14 +295,15 @@ public class LoadParallelBackground : MonoBehaviour
     void Update()
     {
 
-        
         // scrolling canvas here aloneside x axis, using mid point to decide whether curr canvas is out side of the screen .
         moveMidCanvas();
         // remove useless canvas, then active one inmediately..
         refreshCanvas();
 
     }
-    
+
+
+
     void OnDestroy()
     {
         Addressables.Release(opHandle);
@@ -318,6 +334,7 @@ public class LoadParallelBackground : MonoBehaviour
             Vector3 tempPos = backGroundViewCanvas[i].transform.position;
             backGroundViewCanvas[i].transform.position = tempPos + Vector3.left * backGroundCanvasMoveSpeed * Time.deltaTime;
         }
+
     }
 
 
@@ -387,7 +404,7 @@ public class LoadParallelBackground : MonoBehaviour
             // refresh canvas pic.
             int randNum = Random.Range(0, 100);
             randNum = randNum % backGroundViewSpritesKey.Count;
-            Debug.Log(randNum);
+//            Debug.Log(randNum);
             backGroundViewCanvas[2].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
         }
 

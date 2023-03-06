@@ -6,6 +6,7 @@ public class GameSpeedManager : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject platform;
+    public GameObject cutScene;
     public float moveSpeed = 8.0f;
     void Start()
     {

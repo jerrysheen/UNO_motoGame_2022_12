@@ -6,12 +6,14 @@ Shader "JS/2D/Water"
         _NoiseTex("_NoiseTex", 2D) = "white" {}
         _MaskTex("Mask", 2D) = "white" {}
         _NormalMap("Normal Map", 2D) = "bump" {}
+        _BlurMap("Blur Map", 2D) = "white" {}
         _ScrollingSpeed("_ScrollingSpeed", Float) = 1.0
         _ScreenWaveOffset("_ScreenWaveOffset", Float) = -0.3
         _ScreenWaveAtten("_ScreenWaveAtten", Float) = -0.3
+        _BlurPicStartOffset("_BlurPicStartOffSet", Float) = 0.5
 
         // Legacy properties. They're here so that materials using this shader can gracefully fallback to the legacy sprite shader.
-        [HideInInspector] _Color("Tint", Color) = (1,1,1,1)
+        _MainTexColor("Color", Color) = (1,1,1,1)
         [HideInInspector] _RendererColor("RendererColor", Color) = (1,1,1,1)
         [HideInInspector] _Flip("Flip", Vector) = (1,1,1,1)
         [HideInInspector] _AlphaTex("External Alpha", 2D) = "white" {}
@@ -55,6 +57,7 @@ Shader "JS/2D/Water"
                 half4   color       : COLOR;
                 float2	uv          : TEXCOORD0;
                 float2	uvNoise          : TEXCOORD2;
+                float2	uvBlur          : TEXCOORD3;
                 half2	lightingUV  : TEXCOORD1;
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -67,12 +70,18 @@ Shader "JS/2D/Water"
             SAMPLER(sampler_MaskTex);
             TEXTURE2D(_NormalMap);
             SAMPLER(sampler_NormalMap);
+            TEXTURE2D(_BlurMap);
+            SAMPLER(sampler_BlurMap);
+            
             half4 _MainTex_ST;
+            half4 _BlurMap_ST;
             half4 _NormalMap_ST;
             
             float _ScrollingSpeed;
             float _ScreenWaveOffset;
             float _ScreenWaveAtten;
+            float _BlurPicStartOffset;
+            float4 _MainTexColor;
 
             
             TEXTURE2D(_NoiseTex);
@@ -104,6 +113,7 @@ Shader "JS/2D/Water"
                 o.positionCS = TransformObjectToHClip(v.positionOS);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.uvNoise = TRANSFORM_TEX(v.uv, _NoiseTex);
+                o.uvBlur = TRANSFORM_TEX(v.uv, _BlurMap);
                 float4 clipVertex = o.positionCS / o.positionCS.w;
                 o.lightingUV = ComputeScreenPos(clipVertex).xy;
                 o.color = v.color;
@@ -115,14 +125,23 @@ Shader "JS/2D/Water"
             half4 CombinedShapeLightFragment(Varyings i) : SV_Target
             {
                 half4 mask = SAMPLE_TEXTURE2D(_MaskTex, sampler_MaskTex, i.uv);
-                i.uvNoise.x += (_Time.x * _ScrollingSpeed);
+                //i.uvNoise.y += (_Time.x * _ScrollingSpeed + 0.5);
                 half noise = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, i.uvNoise);
+                i.uvNoise.x += (_Time.x * _ScrollingSpeed + 0.3f);
+                half noise2 = SAMPLE_TEXTURE2D(_NoiseTex, sampler_NoiseTex, i.uvNoise);
                 noise = i.uv.y > _ScreenWaveOffset ?  noise: 0.5;
                 noise = noise * 2.0 - 1.0;
                 noise = noise *  _ScreenWaveAtten * (i.uv.y - _ScreenWaveOffset);
+
+                noise2 = i.uv.y > _ScreenWaveOffset ?  noise2: 0.5;
+                noise2 = noise2 * 2.0 - 1.0;
+                noise2 = noise2 *  _ScreenWaveAtten * (i.uv.y - _ScreenWaveOffset);
                 
-                half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, float2(i.uv.x + noise*0.1 ,i.uv.y));
+                half4 main = _MainTexColor * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + noise2 * 0.25,i.uv.y  + noise*0.25), 2);
                // half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, float2(i.uv.x + noise*0.01 ,i.uv.y));
+
+                return half4(main.xyzw);
+                
                 return half4(main);
                 return CombinedShapeLightShared(main, mask, i.lightingUV);
             }
