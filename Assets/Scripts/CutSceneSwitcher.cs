@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic;using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -7,12 +7,12 @@ public class CutSceneSwitcher : MonoBehaviour
 {
     public enum Story_Process 
     {
-        CutScene00,
-        Mission_CollectCoin,
-        CutScene01,
-        Mission_DodgeMine,
-        CutScene02,
-        Normal_Game
+        CutScene00 = 0,
+        Mission_CollectCoin = 1,
+        CutScene01 = 2,
+        Mission_DodgeMine = 3,
+        CutScene02 = 4,
+        Normal_Game = 5
     }
 
     public GameObject collectCoin_Platform;
@@ -159,6 +159,11 @@ public class CutSceneSwitcher : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 切换的时候肯定分为两种，
+    /// 1. 从cut -> 非cut， 这个简单，就是载入platform，以匀速运行。
+    /// 2. 从非cut-> cut。应该是从非cut的最后一个child，在屏幕中，开始加载后面的几个。
+    /// </summary>
     public void SwitchCutScene()
     {
         if (lastIsCutScene != isCutScene || isSwitchingScene)
@@ -256,4 +261,24 @@ public class CutSceneSwitcher : MonoBehaviour
 
     }
 
+    public void GoToNextProcess()
+    {
+        currProcess = (Story_Process) ((int) currProcess + 1);
+    }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(CutSceneSwitcher))]
+public class CutSceneSwitcherEditor : Editor 
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        if (GUILayout.Button("Goto Next"))
+        {
+            var Script = target as CutSceneSwitcher;
+            Script.GoToNextProcess();
+        }
+    }
+}
+#endif
