@@ -153,7 +153,7 @@ public class CutSceneSwitcher : MonoBehaviour
         // scrolling canvas here aloneside x axis, using mid point to decide whether curr canvas is out side of the screen .
         ScrollMidCanvas();
         
-        SwitchCutScene();
+        
         // remove useless canvas, then active one inmediately..
         refreshCanvas();
 
@@ -166,6 +166,8 @@ public class CutSceneSwitcher : MonoBehaviour
     /// </summary>
     public void SwitchCutScene()
     {
+        float width = cutSceneCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+
         if (lastIsCutScene != isCutScene || isSwitchingScene)
         {
             // this means we are first frame switch our cutScnee;
@@ -173,22 +175,37 @@ public class CutSceneSwitcher : MonoBehaviour
             {
                 if (isCutScene)
                 {
-                    
+                    // 已经是换完了的。
+                    // 将对应的平台设置为active，并放在最右边的canvas
+                    switch (currProcess)
+                    {
+                        case Story_Process.CutScene00:
+                            
+                            break;
+                        case Story_Process.CutScene01:
+                            collectCoin_Platform.SetActive(false);
+                            break;
+                        case Story_Process.CutScene02:
+                            dodgeMine_Platform.SetActive(false);
+                            break;
+                    } 
                 }
                 else
                 {
                     // 这里非常简单， 如果不是cutScene， 那么只需要把Platform的头接在这边就好了。
                     switch (currProcess)
                     {
-                        case Story_Process.CutScene00:
-                            
-                            currProcess = Story_Process.Mission_CollectCoin;
+                        case Story_Process.Mission_CollectCoin:
+                            collectCoin_Platform.SetActive(true);
+                            collectCoin_Platform.transform.position = cutSceneCanvas[2].transform.position + Vector3.right * 2.0f * width;
                             break;
-                        case Story_Process.CutScene01:
-                            currProcess = Story_Process.Mission_DodgeMine;
+                        case Story_Process.Mission_DodgeMine:
+                            dodgeMine_Platform.SetActive(true);
+                            dodgeMine_Platform.transform.position = cutSceneCanvas[2].transform.position + Vector3.right * 2.0f * width;
                             break;
-                        case Story_Process.CutScene02:
-                            currProcess = Story_Process.Normal_Game;
+                        case Story_Process.Normal_Game:
+                            normalGame_Platform.SetActive(true);
+                            normalGame_Platform.transform.position = cutSceneCanvas[2].transform.position + Vector3.right * 2.0f * width;
                             break;
                     }
                 }
@@ -222,6 +239,10 @@ public class CutSceneSwitcher : MonoBehaviour
                 Debug.Log((Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime).x);
             }
         }
+        
+        if(collectCoin_Platform.activeSelf) collectCoin_Platform.transform.position = collectCoin_Platform.transform.position + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
+        if(dodgeMine_Platform.activeSelf) dodgeMine_Platform.transform.position = dodgeMine_Platform.transform.position + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
+        if(normalGame_Platform.activeSelf) normalGame_Platform.transform.position = normalGame_Platform.transform.position + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
 
     }
 
@@ -263,7 +284,18 @@ public class CutSceneSwitcher : MonoBehaviour
 
     public void GoToNextProcess()
     {
+        if (currProcess == Story_Process.CutScene00 || currProcess == Story_Process.CutScene01 ||
+            currProcess == Story_Process.CutScene02)
+        {
+            isCutScene = false;
+        }
+        else
+        {
+            isCutScene = true;
+        }
+
         currProcess = (Story_Process) ((int) currProcess + 1);
+        SwitchCutScene();
     }
 }
 
