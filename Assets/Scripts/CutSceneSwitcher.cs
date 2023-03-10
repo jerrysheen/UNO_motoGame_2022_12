@@ -166,6 +166,8 @@ public class CutSceneSwitcher : MonoBehaviour
     /// </summary>
     public void SwitchCutScene()
     {
+        // 在disable gameobject之前, 先根据位置,初始化cutscene.
+        refreshCanvas();
         float width = cutSceneCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
 
         if (lastIsCutScene != isCutScene || isSwitchingScene)
@@ -175,6 +177,9 @@ public class CutSceneSwitcher : MonoBehaviour
             {
                 if (isCutScene)
                 {
+                    cutSceneCanvas[0].SetActive(true);
+                    cutSceneCanvas[1].SetActive(true);
+                    cutSceneCanvas[2].SetActive(true);
                     // 已经是换完了的。
                     // 将对应的平台设置为active，并放在最右边的canvas
                     switch (currProcess)
@@ -183,10 +188,18 @@ public class CutSceneSwitcher : MonoBehaviour
                             
                             break;
                         case Story_Process.CutScene01:
-                            collectCoin_Platform.SetActive(false);
+                             var Go = collectCoin_Platform;
+                             Transform rightLast = Go.transform.GetChild(Go.transform.childCount - 1);
+                             cutSceneCanvas[0].transform.position = rightLast.transform.position + Vector3.right * 2.0f * width;
+                             cutSceneCanvas[1].transform.position = rightLast.transform.position + Vector3.right * 4.0f * width;
+                             cutSceneCanvas[2].transform.position = rightLast.transform.position + Vector3.right * 6.0f * width;
                             break;
                         case Story_Process.CutScene02:
-                            dodgeMine_Platform.SetActive(false);
+                            Go = dodgeMine_Platform;
+                            rightLast = Go.transform.GetChild(Go.transform.childCount - 1);
+                            cutSceneCanvas[0].transform.position = rightLast.transform.position + Vector3.right * 2.0f * width;
+                            cutSceneCanvas[1].transform.position = rightLast.transform.position + Vector3.right * 4.0f * width;
+                            cutSceneCanvas[2].transform.position = rightLast.transform.position + Vector3.right * 6.0f * width;
                             break;
                     } 
                 }
@@ -227,18 +240,16 @@ public class CutSceneSwitcher : MonoBehaviour
     void ScrollMidCanvas()
     {
         // mid canvas.
-
-        if (isCutScene)
-        {
+        // 这和地方只是去简单的移动, 移动判断的标准就是现在这个canvas有没有被激活,激活就需要平移.
             for (int i = 0; i < cutSceneCanvas.Length; i++)
             {
                 // in case the canvas is on loading
-                if (cutSceneCanvas[i] == null) continue;
+                if (cutSceneCanvas[i] == null || !cutSceneCanvas[i].activeSelf) continue;
                 Vector3 tempPos = cutSceneCanvas[i].transform.position;
                 cutSceneCanvas[i].transform.position = tempPos + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
-                Debug.Log((Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime).x);
+                //Debug.Log((Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime).x);
             }
-        }
+
         
         if(collectCoin_Platform.activeSelf) collectCoin_Platform.transform.position = collectCoin_Platform.transform.position + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
         if(dodgeMine_Platform.activeSelf) dodgeMine_Platform.transform.position = dodgeMine_Platform.transform.position + Vector3.left * cutSceneCanvasMoveSpeed * Time.deltaTime;
@@ -246,6 +257,10 @@ public class CutSceneSwitcher : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 这个地方只有一个步骤, 如果这个东西的最右边已经超出屏幕了, 就干掉,如果没有,就什么都不做.
+    /// 并且如果当前是cutscene, 超出左边的东西,还需要重新放置到右边.
+    /// </summary>
     void refreshCanvas()
     {
         Camera camera = GameObject.Find("Main Camera")?.GetComponent<Camera>();
@@ -259,26 +274,54 @@ public class CutSceneSwitcher : MonoBehaviour
         // mid canvas:
         // [0] will always be the most left one.
         float width = cutSceneCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        Vector3 tempPos = cutSceneCanvas[0].transform.position;
-        if (isCutScene )
+
+        
+        // 判断是否超出, 超出了就设置active false;
+        int index;
+        Transform childTransform = null;
+        index = collectCoin_Platform.transform.childCount;
+        childTransform = collectCoin_Platform.transform.GetChild(index - 1);
+        if (childTransform.position.x + width < xMin)
         {
+            collectCoin_Platform.SetActive(false);
+        }
+        index = dodgeMine_Platform.transform.childCount;
+        childTransform = dodgeMine_Platform.transform.GetChild(index - 1);
+        if (childTransform.position.x + width < xMin)
+        {
+            dodgeMine_Platform.SetActive(false);
+        }
+        
+        Vector3 tempPos = cutSceneCanvas[0].transform.position;
+
             if (tempPos.x + width < xMin)
             {
                 // swap and move..
-                GameObject temp = cutSceneCanvas[0];
-                cutSceneCanvas[0] = cutSceneCanvas[1];
-                cutSceneCanvas[1] = cutSceneCanvas[2];
-                cutSceneCanvas[2] = temp;
-                cutSceneCanvas[2].transform.position = cutSceneCanvas[1].transform.position + Vector3.right * 2.0f * width;
-            
-                // refresh canvas pic.
-                int randNum = Random.Range(0, 100);
-                randNum = randNum % cutSceneSpritesKey.Count;
-//            Debug.Log(randNum);
-                cutSceneCanvas[2].GetComponent<SpriteRenderer>().sprite = cutSceneSprites[randNum];
+                if (isCutScene)
+                {
+                    GameObject temp = cutSceneCanvas[0];
+                    cutSceneCanvas[0] = cutSceneCanvas[1];
+                    cutSceneCanvas[1] = cutSceneCanvas[2];
+                    cutSceneCanvas[2] = temp;
+                    cutSceneCanvas[2].transform.position = cutSceneCanvas[1].transform.position + Vector3.right * 2.0f * width;
+                
+                    // refresh canvas pic.
+                    int randNum = Random.Range(0, 100);
+                    randNum = randNum % cutSceneSpritesKey.Count;
+                    cutSceneCanvas[2].GetComponent<SpriteRenderer>().sprite = cutSceneSprites[randNum];
+                }
+                else
+                {
+                    for (int i = 0; i < 3; i++)
+                    {
+                        tempPos = cutSceneCanvas[i].transform.position;
+                        if (tempPos.x + width < xMin)
+                        {
+                            cutSceneCanvas[i].SetActive(false);
+                        }
+                    }
+                }
             }
-
-        }
 
     }
 
@@ -293,9 +336,11 @@ public class CutSceneSwitcher : MonoBehaviour
         {
             isCutScene = true;
         }
-
+        
         currProcess = (Story_Process) ((int) currProcess + 1);
         SwitchCutScene();
+        // var Go = GameObject.Find("CollectCoinPlatform");
+        // Debug.Log(Go.transform.GetChild(Go.transform.childCount - 1).gameObject.name);
     }
 }
 
