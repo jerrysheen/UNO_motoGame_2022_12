@@ -34,7 +34,7 @@ Shader "JS/2D/Water"
 
         Pass
         {
-            Tags { "LightMode" = "Universal2D" }
+            Tags { "LightMode" = "SRPDefaultUnlit" }
             HLSLPROGRAM
             #pragma vertex CombinedShapeLightVertex
             #pragma fragment CombinedShapeLightFragment
@@ -143,7 +143,7 @@ Shader "JS/2D/Water"
                 return half4(main.xyzw);
                 
                 return half4(main);
-                return CombinedShapeLightShared(main, mask, i.lightingUV);
+                //return CombinedShapeLightShared(main, mask, i.lightingUV);
             }
             ENDHLSL
         }

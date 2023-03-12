@@ -3,22 +3,21 @@
   <component name="ChangeListManager">
     <list default="true" id="a67efa93-f155-422b-b366-605b592dd412" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Texture.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Texture.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Arts/renderTexture/New Render Texture.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/renderTexture/New Render Texture.renderTexture" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/texture/CutScene/CutScene00/CutScene00.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/texture/CutScene/CutScene00/CutScene00.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Arts/texture/Player/car.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/texture/Player/car.psd.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CollectableItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CollectableItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameScoreManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/GameSpeedManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/GameSpeedManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/Water.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/Water.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Arts/texture/Scene_Start/Label.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Arts/texture/Scene_Start/Label.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/MidView/moto.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Textures/MidView/moto.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Textures/MidView/wheels.psd.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Textures/MidView/wheels.psd.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Renderer.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +45,6 @@
       <option value="$PROJECT_DIR$/Assets/UIManager.cs" />
       <option value="$PROJECT_DIR$/Assets/SingletonMono.cs" />
       <option value="$PROJECT_DIR$/Assets/GoToNextScene.cs" />
-      <option value="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" />
       <option value="$PROJECT_DIR$/Assets/GameScoreManager.cs" />
       <option value="$PROJECT_DIR$/Assets/CollectableItem.cs" />
       <option value="$PROJECT_DIR$/Assets/ScoreUI.cs" />
@@ -59,6 +57,7 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" />
+      <option value="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2K8ZSEDpzRFFZO1tk0rilKqd9zY" />
