@@ -53,8 +53,11 @@
             <e p="UI" t="Include">
               <e p="Dialogue" t="Include">
                 <e p="DialogueManager.cs" t="Include" />
+                <e p="DialogueMap.cs" t="Include" />
+                <e p="DialogueMapData" t="Include" />
                 <e p="DialogueTrigger.cs" t="Include" />
-                <e p="SingleDialogue.cs" t="Include" />
+                <e p="SingleDialogueData" t="Include" />
+                <e p="SingleDialogueObject.cs" t="Include" />
                 <e p="UIDialoguePanel.cs" t="Include" />
               </e>
               <e p="Score" t="Include">

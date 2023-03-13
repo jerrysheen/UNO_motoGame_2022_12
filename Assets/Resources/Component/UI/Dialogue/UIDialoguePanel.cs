@@ -28,7 +28,7 @@ namespace UIDialogue
         public Text npcName;
         public Text conversation;
 
-        private SingleDialogue currDialogue;
+        private SingleDialogueObject currDialogue;
 
         public Animator dialogueDisplayAnim;
         private DialogueDisplayState m_displayState;
@@ -111,7 +111,7 @@ namespace UIDialogue
             //if (rootCanvasGO.activeSelf || datas == null || datas.Length == 0) return;
             //rootCanvasGO.SetActive(true);
             dialogueDisplayAnim.SetBool("PlayDialogue", true);
-            currDialogue =  datas[0] as SingleDialogue;
+            currDialogue =  datas[0] as SingleDialogueObject;
             StartDialogue();
             m_displayState = DialogueDisplayState.Show;
         }

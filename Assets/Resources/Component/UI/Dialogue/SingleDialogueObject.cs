@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UIDialogue
 {
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/SingleDialogue", order = 1)]
-    public class SingleDialogue : ScriptableObject
+    public class SingleDialogueObject : ScriptableObject
     {
 
         public string npcNameA;
