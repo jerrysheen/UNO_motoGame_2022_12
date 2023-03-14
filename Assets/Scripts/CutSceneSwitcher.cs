@@ -63,7 +63,7 @@ public class CutSceneSwitcher : MonoBehaviour
                 cutSceneCanvas[i] = Instantiate(obj);
                 cutSceneCanvas[i].name = "cutSceneCanvas";
                 cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = oldOrder + 10;
-                int defaultLayer = LayerMask.NameToLayer("Default");
+                int defaultLayer = LayerMask.NameToLayer("SecondCam");
                 cutSceneCanvas[i].layer = defaultLayer;
             }
         }
