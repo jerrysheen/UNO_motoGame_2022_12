@@ -62,6 +62,7 @@ namespace UIDialogue
             if(rootCanvasGO == null) Debug.LogError("Can't find canvas");
 
             m_SentencesQueue = new Queue<Sentence>();
+            if(rootCanvasGO == null)rootCanvasGO.SetActive(false);
             Hide();
         }
 
@@ -109,7 +110,7 @@ namespace UIDialogue
         private void Show(params object[] datas)
         {
             //if (rootCanvasGO.activeSelf || datas == null || datas.Length == 0) return;
-            //rootCanvasGO.SetActive(true);
+            if(!rootCanvasGO.activeSelf)rootCanvasGO.SetActive(true);
             dialogueDisplayAnim.SetBool("PlayDialogue", true);
             currDialogue =  datas[0] as SingleDialogueObject;
             StartDialogue();
@@ -120,9 +121,16 @@ namespace UIDialogue
         {
             dialogueDisplayAnim.SetBool("PlayDialogue", false);
             m_displayState = DialogueDisplayState.Disable;
+            StartCoroutine(DelayDisable(2.5f));
             //rootCanvasGO.SetActive(false);
         }
-        
+
+        IEnumerator DelayDisable(float time)
+        {
+            yield return new WaitForSeconds(time);
+            rootCanvasGO.SetActive(false);
+        }
+
         public void StartDialogue ()
         {
             // init
