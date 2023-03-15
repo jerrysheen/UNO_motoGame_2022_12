@@ -65,6 +65,8 @@ public class CutSceneSwitcher : MonoBehaviour
                 cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = oldOrder + 10;
                 int defaultLayer = LayerMask.NameToLayer("SecondCam");
                 cutSceneCanvas[i].layer = defaultLayer;
+                cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingLayerName = "MidView";
+                cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = 15;
             }
         }
         else

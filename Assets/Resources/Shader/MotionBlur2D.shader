@@ -1,4 +1,4 @@
-Shader "JS/2D/Water"
+Shader "JS/2D/MotionBlur2D"
 {
     Properties
     {
@@ -82,7 +82,7 @@ Shader "JS/2D/Water"
             float _ScreenWaveAtten;
             float _BlurPicStartOffset;
             float4 _MainTexColor;
-
+            uniform float4 _MainTex_TexelSize;
             
             TEXTURE2D(_NoiseTex);
             SAMPLER(sampler_NoiseTex);
@@ -137,11 +137,49 @@ Shader "JS/2D/Water"
                 noise2 = noise2 * 2.0 - 1.0;
                 noise2 = noise2 *  _ScreenWaveAtten * (i.uv.y - _ScreenWaveOffset);
 
-                // 使用这个的原因是为了自动做一次模糊
-               half4 main = _MainTexColor * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + noise2 * 0.25,i.uv.y  + noise*0.25), 2);
-                //half4 main = i.color * SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, float2(i.uv.x + noise*0.01 ,i.uv.y));
+                //half4 main = _MainTexColor * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + noise2 * 0.25,i.uv.y  + noise*0.25), 2);
 
-                return half4(main.xyzw);
+                //half4 main = _MainTexColor * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + noise2 * 0.25,i.uv.y  + noise*0.25), 2);
+               float lodLevel = 1.0f;
+                float blurSize = 1.0f;
+               half4 mainTex =  i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x , i.uv.y),lodLevel);
+
+                half4 main = mainTex *  0.0;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 5.0 * blurSize * _MainTex_TexelSize.x, i.uv.y ),lodLevel) * 0.30;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 15.0 * blurSize * _MainTex_TexelSize.x, i.uv.y ),lodLevel) * 0.25;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 25.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.15;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 30.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.10;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 38.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.10;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 46.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.07;
+                     main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 55.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.03;
+                     //main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 16.0 * _MainTex_TexelSize.x, i.uv.y),lodLevel)*0.666;
+                     //main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 20.0 * _MainTex_TexelSize.x, i.uv.y),lodLevel);
+                     //main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 24.0 * _MainTex_TexelSize.x, i.uv.y),lodLevel)* 0.05;
+                     //main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 28.0 * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.05;
+                // half4 main = mainTex *  0.35;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 5.0 * blurSize * _MainTex_TexelSize.x, i.uv.y ),lodLevel) * 0.20;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 15.0 * blurSize * _MainTex_TexelSize.x, i.uv.y ),lodLevel) * 0.18;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 25.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.10;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 30.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.09;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 38.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.05;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 46.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.03;
+                //      main += i.color * SAMPLE_TEXTURE2D_LOD(_MainTex, sampler_MainTex, float2(i.uv.x + 55.0 * blurSize * _MainTex_TexelSize.x, i.uv.y),lodLevel) * 0.01;
+
+                //return main;
+                //main.xyz /= 9.0;
+                 float alpha;
+                 if(mainTex.a > 0.45f)
+                 {
+                     alpha = 1;
+                     alpha = saturate(alpha);
+                    return lerp(main, mainTex, mainTex.a);
+                 }
+                 else
+                 {
+                
+                    return (main);
+                 }
+                return half4(main.xyz, alpha);
                 
                 return half4(main);
                 //return CombinedShapeLightShared(main, mask, i.lightingUV);

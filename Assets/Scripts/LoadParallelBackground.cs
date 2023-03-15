@@ -91,6 +91,11 @@ public class LoadParallelBackground : MonoBehaviour
                 backGroundViewCanvas[i].name = "backGroundViewCanvas";
                 int defaultLayer = LayerMask.NameToLayer("Default");
                 backGroundViewCanvas[i].layer = defaultLayer;
+                
+                midViewCanvas[i].GetComponent<SpriteRenderer>().sortingLayerName = "MidView";
+                farViewCanvas[i].GetComponent<SpriteRenderer>().sortingLayerName = "MidView";
+                midViewCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = 5;
+                farViewCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = 3;
             }
         }
         else

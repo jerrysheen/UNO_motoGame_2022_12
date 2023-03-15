@@ -14,7 +14,7 @@ public class MotionBlurTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = this.transform.position + Time.deltaTime * Vector3.right * 13f;
+        this.transform.position = this.transform.position + Time.deltaTime * Vector3.right * 100f;
     }
 
     public void Accelerate()
