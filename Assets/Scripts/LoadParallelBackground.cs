@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Manager;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -24,9 +25,9 @@ public class LoadParallelBackground : MonoBehaviour
     public Sprite[] farViewSprites;
     public Sprite[] backGroundViewSprites;
 
-    [Header("Move Speed")] 
+    [Header("Move Speed")]
     [Space]
-    public float midCanvasMoveSpeed = 3.0f;
+    public float midCanvasMoveSpeed;
     public float farCanvasMoveSpeed = 5.0f;    
     public float backGroundCanvasMoveSpeed = 5.0f;    
 
@@ -320,6 +321,10 @@ public class LoadParallelBackground : MonoBehaviour
     /// </summary>
     void moveMidCanvas()
     {
+
+        float midCanvasMoveSpeed = GameManager.getInstance.midCanvasMoveSpeed;
+        float farCanvasMoveSpeed = GameManager.getInstance.farCanvasMoveSpeed;
+        float backGroundCanvasMoveSpeed = GameManager.getInstance.backGroundCanvasMoveSpeed;
         // mid canvas.
         for (int i = 0; i < midViewCanvas.Length; i++)
         {
@@ -351,7 +356,7 @@ public class LoadParallelBackground : MonoBehaviour
 
     void refreshCanvas()
     {
-        Camera camera = GameObject.Find("Main Camera")?.GetComponent<Camera>();
+        Camera camera = GameObject.Find("MotionBlur Cam")?.GetComponent<Camera>();
         Vector3 p0 = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
         Vector3 p1 = camera.ViewportToWorldPoint(new Vector3(0, 1, camera.nearClipPlane));
         Vector3 p2 = camera.ViewportToWorldPoint(new Vector3(1, 0, camera.nearClipPlane));
@@ -428,7 +433,7 @@ public class LoadParallelBackground : MonoBehaviour
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
-        Camera camera = GameObject.Find("Main Camera")?.GetComponent<Camera>();
+        Camera camera = GameObject.Find("MotionBlur Cam")?.GetComponent<Camera>();
         Vector3 p0 = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
         Vector3 p1 = camera.ViewportToWorldPoint(new Vector3(0, 1, camera.nearClipPlane));
         Vector3 p2 = camera.ViewportToWorldPoint(new Vector3(1, 0, camera.nearClipPlane));

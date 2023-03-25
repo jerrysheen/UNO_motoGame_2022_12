@@ -34,7 +34,7 @@ public class CollectableItem : MonoBehaviour
         if (other.gameObject.name.Equals(otherColliderName, StringComparison.Ordinal))
         {
             Debug.Log("Test");
-            GameScoreManager.getInstance.ColliderWithSomeThing(itemType, damageValue);
+            GameManager.getInstance.ColliderWithSomeThing(itemType, damageValue);
             // should I add a pool here?
             PlayCollisionEffect();
             if (disableAfterCollision)

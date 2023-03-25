@@ -20,7 +20,7 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
         {
             UIManager.getInstance.AddUI(this);
         }
-        GameScoreManager.getInstance.OnScoreValueChange += OnScoreChange;
+        GameManager.getInstance.OnScoreValueChange += OnScoreChange;
         currText = GetComponent<TextMeshProUGUI>();
         currText.text = 0.ToString();
         currScore = 0;
@@ -31,7 +31,7 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
         if (UIManager.getInstance != null)
         {
             UIManager.getInstance.RemoveUI(this);
-            GameScoreManager.getInstance.OnScoreValueChange -= OnScoreChange;
+            GameManager.getInstance.OnScoreValueChange -= OnScoreChange;
         }
     }
 
@@ -64,7 +64,7 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
 
     private void Hide()
     {
-        GameScoreManager.getInstance.OnScoreValueChange -= OnScoreChange;
+        GameManager.getInstance.OnScoreValueChange -= OnScoreChange;
         this.gameObject.SetActive(false);
     }
 }

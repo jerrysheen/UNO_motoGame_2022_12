@@ -45,6 +45,7 @@
         <e p="GameSpeedManager.cs" t="Include" />
         <e p="GoToNextScene.cs" t="Include" />
         <e p="LanePoint.cs" t="Include" />
+        <e p="MotionBlurTest.cs" t="Include" />
         <e p="Resources" t="Include">
           <e p="Animation" t="Include">
             <e p="Moto" t="Include" />
@@ -52,12 +53,14 @@
           <e p="Component" t="Include">
             <e p="UI" t="Include">
               <e p="Dialogue" t="Include">
+                <e p="Animation" t="Include" />
                 <e p="DialogueManager.cs" t="Include" />
                 <e p="DialogueMap.cs" t="Include" />
                 <e p="DialogueMapData" t="Include" />
                 <e p="DialogueTrigger.cs" t="Include" />
                 <e p="SingleDialogueData" t="Include" />
                 <e p="SingleDialogueObject.cs" t="Include" />
+                <e p="Textures" t="Include" />
                 <e p="UIDialoguePanel.cs" t="Include" />
               </e>
               <e p="Score" t="Include">
@@ -74,6 +77,7 @@
           </e>
           <e p="Prefab" t="Include" />
           <e p="Shader" t="Include">
+            <e p="MotionBlur2D.shader" t="Include" />
             <e p="Water2D.shader" t="Include" />
           </e>
           <e p="SpriteShape" t="Include" />
@@ -82,8 +86,12 @@
             <e p="MidView" t="Include" />
           </e>
         </e>
+        <e p="Resources_moved" t="Include">
+          <e p="Textures" t="Include" />
+        </e>
         <e p="Scenes" t="Include">
           <e p="CodeTest" t="Include" />
+          <e p="CodeTest_Profiles" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="CutSceneSwitcher.cs" t="Include" />

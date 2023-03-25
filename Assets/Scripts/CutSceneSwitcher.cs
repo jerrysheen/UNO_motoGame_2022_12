@@ -1,3 +1,4 @@
+using Manager;
 using System.Collections;
 using System.Collections.Generic;using UnityEditor;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class CutSceneSwitcher : MonoBehaviour
     public GameObject[] cutSceneCanvas;
     public Sprite[] cutSceneSprites;
     public bool isCutScene = false;
-    public float cutSceneCanvasMoveSpeed = 10.0f;
+    
     private bool isSwitchingScene = false;
     private bool lastIsCutScene = false;
     public List<string> cutSceneSpritesKey;
@@ -63,7 +64,7 @@ public class CutSceneSwitcher : MonoBehaviour
                 cutSceneCanvas[i] = Instantiate(obj);
                 cutSceneCanvas[i].name = "cutSceneCanvas";
                 cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = oldOrder + 10;
-                int defaultLayer = LayerMask.NameToLayer("SecondCam");
+                int defaultLayer = LayerMask.NameToLayer("Default");
                 cutSceneCanvas[i].layer = defaultLayer;
                 cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingLayerName = "MidView";
                 cutSceneCanvas[i].GetComponent<SpriteRenderer>().sortingOrder = 15;
@@ -241,6 +242,7 @@ public class CutSceneSwitcher : MonoBehaviour
     /// </summary>
     void ScrollMidCanvas()
     {
+        float cutSceneCanvasMoveSpeed = GameManager.getInstance.cutSceneCanvasMoveSpeed;
         // mid canvas.
         // 这和地方只是去简单的移动, 移动判断的标准就是现在这个canvas有没有被激活,激活就需要平移.
             for (int i = 0; i < cutSceneCanvas.Length; i++)
@@ -265,7 +267,7 @@ public class CutSceneSwitcher : MonoBehaviour
     /// </summary>
     void refreshCanvas()
     {
-        Camera camera = GameObject.Find("Main Camera")?.GetComponent<Camera>();
+        Camera camera = GameObject.Find("MotionBlur Cam")?.GetComponent<Camera>();
         Vector3 p0 = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
         Vector3 p1 = camera.ViewportToWorldPoint(new Vector3(0, 1, camera.nearClipPlane));
         Vector3 p2 = camera.ViewportToWorldPoint(new Vector3(1, 0, camera.nearClipPlane));

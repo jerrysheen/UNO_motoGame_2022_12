@@ -4,11 +4,11 @@
     <list default="true" id="a67efa93-f155-422b-b366-605b592dd412" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UNO_motoGame_2022_12/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/DialogueTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/DialogueTrigger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/SingleDialogue.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/SingleDialogue.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/UIDialoguePanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/UIDialoguePanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CodeTest.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CodeTest 1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CodeTest 1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +29,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/SingleDialogueObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/MotionBlurTest.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -46,15 +47,16 @@
       <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/UIDialoguePanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/Dialogue/DialogueTrigger.cs" />
       <option value="$PROJECT_DIR$/Assets/GameSpeedManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Score/ScoreUIPanel.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Shader/Water2D.shader" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/SingleDialogueObject.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/SingleDialogue1.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/UIDialoguePanel.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/DialogueMap.cs" />
       <option value="$PROJECT_DIR$/Assets/Resources/Component/UI/Dialogue/DialogueTrigger.cs" />
+      <option value="$PROJECT_DIR$/Assets/MotionBlurTest.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/CutSceneSwitcher.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/LoadParallelBackground.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2K8ZSEDpzRFFZO1tk0rilKqd9zY" />
@@ -113,6 +115,8 @@
       <workItem from="1677311957992" duration="3124000" />
       <workItem from="1677327948260" duration="17808000" />
       <workItem from="1678107000696" duration="3012000" />
+      <workItem from="1678809722248" duration="1558000" />
+      <workItem from="1678935888819" duration="284000" />
     </task>
     <servers />
   </component>
