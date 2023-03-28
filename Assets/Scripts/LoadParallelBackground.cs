@@ -18,25 +18,25 @@ public class LoadParallelBackground : MonoBehaviour
 
     public GameObject[] midViewCanvas;
     public GameObject[] farViewCanvas;
-    public GameObject[] backGroundViewCanvas;
+    //public GameObject[] backGroundViewCanvas;
 
 
     public Sprite[] midViewSprites;
     public Sprite[] farViewSprites;
-    public Sprite[] backGroundViewSprites;
+    //public Sprite[] backGroundViewSprites;
 
     [Header("Move Speed")]
     [Space]
     public float midCanvasMoveSpeed;
     public float farCanvasMoveSpeed = 5.0f;    
-    public float backGroundCanvasMoveSpeed = 5.0f;    
+    //public float backGroundCanvasMoveSpeed = 5.0f;    
 
     [Space]
     [Header("Mount Point")] 
     [Space]
     public GameObject midMountPointGO;
     public GameObject farMountPointGO;
-    public GameObject backGroundMountPointGO;
+    //public GameObject backGroundMountPointGO;
     
     
 
@@ -47,7 +47,7 @@ public class LoadParallelBackground : MonoBehaviour
     public List<string> farViewSpritesKey;
     public List<string> backGroundViewSpritesKey;
     public string canvasPrefabKey = "SingleBackGroundCanvas";
-    public string BackgroundCanvasPrefabKey = "SingleBackGroundCanvas";
+    //public string BackgroundCanvasPrefabKey = "SingleBackGroundCanvas";
 
     AsyncOperationHandle<GameObject> opHandle;
     AsyncOperationHandle<Sprite> opSpriteHandle;
@@ -73,7 +73,7 @@ public class LoadParallelBackground : MonoBehaviour
         // Load Canvas Prefab;
         midViewCanvas = new GameObject[3];
         farViewCanvas = new GameObject[3];
-        backGroundViewCanvas = new GameObject[3];
+        //backGroundViewCanvas = new GameObject[3];
         opHandle = Addressables.LoadAssetAsync<GameObject>(canvasPrefabKey);
         yield return opHandle;
 
@@ -88,10 +88,10 @@ public class LoadParallelBackground : MonoBehaviour
                 midViewCanvas[i].name = "midCanvas";
                 farViewCanvas[i] = Instantiate (obj);
                 farViewCanvas[i].name = "farViewCanvas";
-                backGroundViewCanvas[i] = Instantiate(obj);
-                backGroundViewCanvas[i].name = "backGroundViewCanvas";
-                int defaultLayer = LayerMask.NameToLayer("Default");
-                backGroundViewCanvas[i].layer = defaultLayer;
+                //backGroundViewCanvas[i] = Instantiate(obj);
+                //backGroundViewCanvas[i].name = "backGroundViewCanvas";
+                //int defaultLayer = LayerMask.NameToLayer("Default");
+                //backGroundViewCanvas[i].layer = defaultLayer;
                 
                 midViewCanvas[i].GetComponent<SpriteRenderer>().sortingLayerName = "MidView";
                 farViewCanvas[i].GetComponent<SpriteRenderer>().sortingLayerName = "MidView";
@@ -233,55 +233,55 @@ public class LoadParallelBackground : MonoBehaviour
         
         // backGroundview set:
 
-        if (backGroundViewSpritesKey == null || backGroundViewSpritesKey.Count == 0)
-        {
-            tempCount = 0;
-        }
-        else
-        {
-            tempCount = backGroundViewSpritesKey.Count;
-        }
+        //if (backGroundViewSpritesKey == null || backGroundViewSpritesKey.Count == 0)
+        //{
+        //    tempCount = 0;
+        //}
+        //else
+        //{
+        //    tempCount = backGroundViewSpritesKey.Count;
+        //}
 
-        backGroundViewSprites = new Sprite[tempCount];
-        for (int i = 0; i < tempCount; i++)
-        {
-            opSpriteHandle = Addressables.LoadAssetAsync<Sprite>(backGroundViewSpritesKey[i]);
-            yield return opSpriteHandle;
+        //backGroundViewSprites = new Sprite[tempCount];
+        //for (int i = 0; i < tempCount; i++)
+        //{
+        //    opSpriteHandle = Addressables.LoadAssetAsync<Sprite>(backGroundViewSpritesKey[i]);
+        //    yield return opSpriteHandle;
 
-            if (opSpriteHandle.Status == AsyncOperationStatus.Succeeded)
-            {
-                backGroundViewSprites[i] = opSpriteHandle.Result;
-            }
-            else
-            {
-                Debug.LogError("cant find" + opSpriteHandle.DebugName);
-            }
-        }
+        //    if (opSpriteHandle.Status == AsyncOperationStatus.Succeeded)
+        //    {
+        //        backGroundViewSprites[i] = opSpriteHandle.Result;
+        //    }
+        //    else
+        //    {
+        //        Debug.LogError("cant find" + opSpriteHandle.DebugName);
+        //    }
+        //}
 
-        // Assign random sprite to Canvas.
-        for (int i = 0; i < 3; i++)
-        {
-            if (tempCount != 0)
-            {
-                int randNum = Random.Range(0, tempCount + 1);
-                randNum = randNum == 4 ? 3 : randNum;
-                Debug.Log(randNum);
-                backGroundViewCanvas[i].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
-            }
-        }
+        //// Assign random sprite to Canvas.
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    if (tempCount != 0)
+        //    {
+        //        int randNum = Random.Range(0, tempCount + 1);
+        //        randNum = randNum == 4 ? 3 : randNum;
+        //        Debug.Log(randNum);
+        //        backGroundViewCanvas[i].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
+        //    }
+        //}
 
-        // set init place.   left / mid / right.
+        //// set init place.   left / mid / right.
 
-        width = backGroundViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        if (!backGroundMountPointGO)
-        {
-            Debug.LogError("Please assign mid mount point gameobj");
-        }
+        //width = backGroundViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        //if (!backGroundMountPointGO)
+        //{
+        //    Debug.LogError("Please assign mid mount point gameobj");
+        //}
 
-        Vector3 backGroundMountPoint = backGroundMountPointGO.transform.position;
-        backGroundViewCanvas[0].transform.position = new Vector3(backGroundMountPoint.x - 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
-        backGroundViewCanvas[1].transform.position = new Vector3(backGroundMountPoint.x, backGroundMountPoint.y, backGroundMountPoint.z);
-        backGroundViewCanvas[2].transform.position = new Vector3(backGroundMountPoint.x + 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
+        //Vector3 backGroundMountPoint = backGroundMountPointGO.transform.position;
+        //backGroundViewCanvas[0].transform.position = new Vector3(backGroundMountPoint.x - 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
+        //backGroundViewCanvas[1].transform.position = new Vector3(backGroundMountPoint.x, backGroundMountPoint.y, backGroundMountPoint.z);
+        //backGroundViewCanvas[2].transform.position = new Vector3(backGroundMountPoint.x + 2 * width, backGroundMountPoint.y, backGroundMountPoint.z);
         #endregion
 
         #region Load Cut Scene OR Begin Play
@@ -343,13 +343,13 @@ public class LoadParallelBackground : MonoBehaviour
             farViewCanvas[i].transform.position = tempPos + Vector3.left * farCanvasMoveSpeed * Time.deltaTime;
         }
         
-        for (int i = 0; i < backGroundViewCanvas.Length; i++)
-        {
-            // in case the canvas is on loading
-            if (backGroundViewCanvas[i] == null) continue;
-            Vector3 tempPos = backGroundViewCanvas[i].transform.position;
-            backGroundViewCanvas[i].transform.position = tempPos + Vector3.left * backGroundCanvasMoveSpeed * Time.deltaTime;
-        }
+        //for (int i = 0; i < backGroundViewCanvas.Length; i++)
+        //{
+        //    // in case the canvas is on loading
+        //    if (backGroundViewCanvas[i] == null) continue;
+        //    Vector3 tempPos = backGroundViewCanvas[i].transform.position;
+        //    backGroundViewCanvas[i].transform.position = tempPos + Vector3.left * backGroundCanvasMoveSpeed * Time.deltaTime;
+        //}
 
     }
 
@@ -404,25 +404,25 @@ public class LoadParallelBackground : MonoBehaviour
             farViewCanvas[2].GetComponent<SpriteRenderer>().sprite = farViewSprites[randNum];
         }
         
-        // far canvas:
-        // [0] will always be the most left one.
-        width = backGroundViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
-        tempPos = backGroundViewCanvas[0].transform.position;
-        if (tempPos.x + width < xMin)
-        {
-            // swap and move..
-            GameObject temp = backGroundViewCanvas[0];
-            backGroundViewCanvas[0] = backGroundViewCanvas[1];
-            backGroundViewCanvas[1] = backGroundViewCanvas[2];
-            backGroundViewCanvas[2] = temp;
-            backGroundViewCanvas[2].transform.position = backGroundViewCanvas[1].transform.position + Vector3.right * 2.0f * width;
+//        // far canvas:
+//        // [0] will always be the most left one.
+//        width = backGroundViewCanvas[0].GetComponent<SpriteRenderer>().bounds.size.x / 2;
+//        tempPos = backGroundViewCanvas[0].transform.position;
+//        if (tempPos.x + width < xMin)
+//        {
+//            // swap and move..
+//            GameObject temp = backGroundViewCanvas[0];
+//            backGroundViewCanvas[0] = backGroundViewCanvas[1];
+//            backGroundViewCanvas[1] = backGroundViewCanvas[2];
+//            backGroundViewCanvas[2] = temp;
+//            backGroundViewCanvas[2].transform.position = backGroundViewCanvas[1].transform.position + Vector3.right * 2.0f * width;
 
-            // refresh canvas pic.
-            int randNum = Random.Range(0, 100);
-            randNum = randNum % backGroundViewSpritesKey.Count;
-//            Debug.Log(randNum);
-            backGroundViewCanvas[2].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
-        }
+//            // refresh canvas pic.
+//            int randNum = Random.Range(0, 100);
+//            randNum = randNum % backGroundViewSpritesKey.Count;
+////            Debug.Log(randNum);
+//            backGroundViewCanvas[2].GetComponent<SpriteRenderer>().sprite = backGroundViewSprites[randNum];
+//        }
 
     }
 
