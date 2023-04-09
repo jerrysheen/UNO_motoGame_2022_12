@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347724680857a394e95d262375349711, type: 3}
   m_Name: CutScene01
   m_EditorClassIdentifier: 
-  npcNameA: aaa
-  npcNameB: 
-  characterASprite: {fileID: 0}
-  characterBSprite: {fileID: 0}
+  npcNameA: Ruby
+  npcNameB: Sabrina
+  characterASprite: {fileID: 21300000, guid: e8705c06bf2e45b4493580a969505e58, type: 3}
+  characterBSprite: {fileID: 21300000, guid: e8705c06bf2e45b4493580a969505e58, type: 3}
   conversations:
-  - words: 111
+  - words: "\u4F46\u662F\u4F60\u522B\u7740\u6025\uFF0C\u5728\u6765\u4E4B\u524D\uFF0C\u4F60\u53EF\u4EE5\u5148\u719F\u6089\u4E00\u4E0B\u4F60\u7684\u8FD9\u8F86\u65B0\u8F66\uFF01"
     owners: 0
-  - words: 2222
-    owners: 0
-  - words: 33333
+  - words: "\u6309\uFE0F\uFE0F\u952E\uFF0C\u5207\u6362\u4F60\u6240\u5728\u7684\u8F68\u9053\u3002"
     owners: 0

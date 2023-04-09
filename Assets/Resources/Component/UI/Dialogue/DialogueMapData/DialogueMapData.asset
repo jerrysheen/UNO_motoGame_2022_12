@@ -16,6 +16,10 @@ MonoBehaviour:
   - name: CutScene00
     singleDialogueData: {fileID: 11400000, guid: dde2197ae5bd9bf42af2973f759dd4bc, type: 2}
   - name: CutScene01
-    singleDialogueData: {fileID: 11400000, guid: 8e19d369d0425764ba281c020e21a585, type: 2}
+    singleDialogueData: {fileID: 11400000, guid: 46b67db3192fa144989837cd235b099c, type: 2}
   - name: CutScene02
-    singleDialogueData: {fileID: 11400000, guid: ff29daf16ee7033488a91403c1f0d122, type: 2}
+    singleDialogueData: {fileID: 11400000, guid: ee1c83d56238e5240a7686720857b62a, type: 2}
+  - name: CutScene03
+    singleDialogueData: {fileID: 11400000, guid: fdbfe10d898c224449b7ab89115955cc, type: 2}
+  - name: CutScene04
+    singleDialogueData: {fileID: 11400000, guid: 0f185579f7682c7489278b6b1b9d0661, type: 2}

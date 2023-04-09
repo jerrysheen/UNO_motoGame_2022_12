@@ -15,14 +15,26 @@ public class CollectableItem : MonoBehaviour
     public CollectableItemType itemType;
     public string otherColliderName = "player";
     public  int damageValue = 0;
+    public Animator animator;
+
 
     public bool disableAfterCollision = true;
+    public float delayTime = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    private void OnEnable()
+    {
+        Debug.Log("Coin Enabled!");
+        animator = GetComponent<Animator>();
+        if (animator) 
+        {
+            animator.Play("Base Layer.OrangeIdle");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -32,18 +44,28 @@ public class CollectableItem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Contact with Object");
-        if (other.gameObject.name.Equals(otherColliderName, StringComparison.Ordinal))
+        Debug.Log(other.gameObject.tag);
+        Debug.Log(otherColliderName);
+        if (other.gameObject.tag.Equals(otherColliderName, StringComparison.Ordinal))
         {
             Debug.Log("Test");
+            if(animator)animator.SetTrigger("Disapear");
             GameManager.getInstance.ColliderWithSomeThing(itemType, damageValue);
             // should I add a pool here?
             PlayCollisionEffect();
             if (disableAfterCollision)
             {
-                Destroy(this.gameObject);
+                StartCoroutine(DelayDestroy(delayTime));
+               
             }
         }
         
+    }
+
+    IEnumerator DelayDestroy(float time) 
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(this.gameObject);
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UI;
+using Manager;
 
 namespace UIDialogue
 {
@@ -111,6 +112,7 @@ namespace UIDialogue
         {
             //if (rootCanvasGO.activeSelf || datas == null || datas.Length == 0) return;
             if(!rootCanvasGO.activeSelf)rootCanvasGO.SetActive(true);
+            if(!panelRoot.gameObject.activeSelf) panelRoot.gameObject.SetActive(true);
             dialogueDisplayAnim.SetBool("PlayDialogue", true);
             currDialogue =  datas[0] as SingleDialogueObject;
             StartDialogue();
@@ -119,6 +121,14 @@ namespace UIDialogue
 
         private void Hide()
         {
+            if (GameManager.getInstance && currDialogue) 
+            {
+                Debug.Log(GameManager.getInstance);
+                Debug.Log(currDialogue);
+                GameManager.getInstance.GoToNextStoryLine(currDialogue.name);
+            }
+
+
             dialogueDisplayAnim.SetBool("PlayDialogue", false);
             m_displayState = DialogueDisplayState.Disable;
             StartCoroutine(DelayDisable(2.5f));
@@ -128,7 +138,7 @@ namespace UIDialogue
         IEnumerator DelayDisable(float time)
         {
             yield return new WaitForSeconds(time);
-            rootCanvasGO.SetActive(false);
+            panelRoot.gameObject.SetActive(false);
         }
 
         public void StartDialogue ()

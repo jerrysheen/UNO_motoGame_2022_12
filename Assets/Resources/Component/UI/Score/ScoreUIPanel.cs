@@ -31,7 +31,10 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
         if (UIManager.getInstance != null)
         {
             UIManager.getInstance.RemoveUI(this);
-            GameManager.getInstance.OnScoreValueChange -= OnScoreChange;
+            if (GameManager.getInstance ) 
+            {
+                GameManager.getInstance.OnScoreValueChange -= OnScoreChange;
+            }
         }
     }
 

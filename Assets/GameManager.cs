@@ -9,6 +9,10 @@ namespace Manager
 
 public class GameManager :  SingletonMono<GameManager>
 {
+
+        public Action<string> OnStoryLineChange;
+
+
         //public static event Action<int> onGameStateChanged;
         public Action<int> OnScoreValueChange; 
         public int score = 0;
@@ -50,6 +54,13 @@ public class GameManager :  SingletonMono<GameManager>
             OnScoreValueChange(-value);
         }
 
-}
+
+        public void GoToNextStoryLine(string name)
+        {
+            if(OnStoryLineChange != null)
+            OnStoryLineChange(name);
+        }
+
+    }
 
 }
