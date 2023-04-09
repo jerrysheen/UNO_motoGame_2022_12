@@ -31,6 +31,7 @@ public class CollectableItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Contact with Object");
         if (other.gameObject.name.Equals(otherColliderName, StringComparison.Ordinal))
         {
             Debug.Log("Test");

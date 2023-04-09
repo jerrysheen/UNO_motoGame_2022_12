@@ -48,9 +48,9 @@ Material:
     m_Floats:
     - _BlurPicStartOffset: 0.43
     - _EnableExternalAlpha: 0
-    - _ScreenWaveAtten: 0.2
-    - _ScreenWaveOffset: 0.47
-    - _ScrollingSpeed: 5
+    - _ScreenWaveAtten: 0.41
+    - _ScreenWaveOffset: 0.42
+    - _ScrollingSpeed: 6.16
     - _WaveDistortion: 0.41
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

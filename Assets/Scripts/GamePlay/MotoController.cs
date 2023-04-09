@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MotoController : MonoBehaviour
 {
+
+    public Transform moto;
     public enum MotoState
     {
         Changed = 0,
@@ -19,6 +21,8 @@ public class MotoController : MonoBehaviour
     void Start()
     {
         motostate = MotoState.Changed;
+        moto = GameObject.Find("carPart")?.transform;
+        moto.position = new Vector3(moto.position.x, lanePoints[0].transform.position.y, moto.position.z);
     }
 
     // Update is called once per frame
@@ -61,7 +65,7 @@ public class MotoController : MonoBehaviour
         while (restTime > 0)
         {
             tempPos = Vector3.Lerp(currPos, nextPos, 1 - restTime / changeLaneTime);
-            this.transform.position = new Vector3(this.transform.position.x,tempPos.y, this.transform.position.z);
+            moto.position = new Vector3(moto.position.x,tempPos.y, moto.position.z);
             restTime -= Time.deltaTime;
             yield return null;
         }
