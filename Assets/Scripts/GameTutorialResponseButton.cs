@@ -40,7 +40,11 @@ public class GameTutorialResponseButton : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.getInstance.OnDialogueFinished -= _OnStroyLineChange;
+        if (GameManager.getInstance) 
+        {
+            if(GameManager.getInstance.OnDialogueFinished != null)
+            GameManager.getInstance.OnDialogueFinished -= _OnStroyLineChange;
+        }
     }
 
 
@@ -97,12 +101,12 @@ public class GameTutorialResponseButton : MonoBehaviour
         switch (currDialogueName)
         {
             case "CutScene00":
-                GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.MotoMoveControl);
+                if(GameManager.getInstance.currGuideProcedure != GameManager.GuideProcedure.MotoMoveControl)GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.MotoMoveControl);
                 Debug.Log(GameManager.getInstance.currGuideProcedure);
                 break;
 
             case "CutScene02":
-                GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.CollectingOrange);
+                if (GameManager.getInstance.currGuideProcedure != GameManager.GuideProcedure.CollectingOrange) GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.CollectingOrange);
                 break;
 
         }

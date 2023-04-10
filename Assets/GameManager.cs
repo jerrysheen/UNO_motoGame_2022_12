@@ -21,6 +21,7 @@ public class GameManager :  SingletonMono<GameManager>
             MotoMoveControl,
             Joking,
             CollectingOrange,
+            Finished
         }
 
         public GuideProcedure currGuideProcedure;
@@ -45,6 +46,16 @@ public class GameManager :  SingletonMono<GameManager>
         private bool finishedCollectingCoins = false;
 
         public GameObject player;
+        public float tutorialOrangeDistanceFromPeople = 30.0f;
+        public GameObject mountPoint0;
+        public GameObject mountPoint1;
+        public GameObject mountPoint2;
+
+
+        private GameObject coins0;
+        private GameObject coins1;
+        private GameObject coins2;
+
         protected override void Awake()
         {
             base.Awake();
@@ -89,15 +100,19 @@ public class GameManager :  SingletonMono<GameManager>
             GuideProcedureChange();
         }
 
-        private void Start()
+        IEnumerator Start()
         {
 
             //StartCoroutine(WaitUIPanelInit());
-            AsyncOperationHandle<GameObject> opHandle = Addressables.LoadAsset<GameObject>("Coin");
-
+            AsyncOperationHandle<GameObject> opHandle = Addressables.LoadAssetAsync<GameObject>("CoinTutorial");
+            yield return null;
             if (opHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 CoinPrefab = opHandle.Result;
+            }
+            else 
+            {
+                Debug.LogError("No resource");
             }
         }
 
@@ -195,6 +210,17 @@ public class GameManager :  SingletonMono<GameManager>
                     UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
  
                     break;
+
+                case GuideProcedure.Finished:
+                    Debug.Log("Switch to Finished");
+                    // 
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene04");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    if(coins0.activeSelf) Destroy(coins0);
+                    if(coins1.activeSelf) Destroy(coins1);
+                    if(coins2.activeSelf) Destroy(coins2);
+                    break;
             }
         
         }
@@ -224,8 +250,34 @@ public class GameManager :  SingletonMono<GameManager>
         IEnumerator ListenToCollecttingOrange()
         {
             Debug.Log("Start");
-            GameObject coins = Instantiate(CoinPrefab);
-            coins.transform.position = player.transform.position;
+            var tempGo = GameObject.Find("CutSceneSwitcher");
+            Transform parent_transform = this.transform;
+            if (tempGo)
+            {
+                var script = tempGo.GetComponent<CutSceneSwitcher>();
+                parent_transform = script.cutSceneCanvas[0].gameObject.transform;
+                for (int i = 1; i < 3; i++) 
+                {
+                    if (parent_transform.position.x < script.cutSceneCanvas[i].gameObject.transform.position.x) 
+                    {
+                        parent_transform = script.cutSceneCanvas[i].gameObject.transform;
+                    }
+                }
+            }
+            else 
+            {
+                Debug.LogError("No CutSceneSwitcher");
+            }
+            coins0 = Instantiate(CoinPrefab);
+            coins1 = Instantiate(CoinPrefab);
+            coins2 = Instantiate(CoinPrefab);
+            coins0.transform.position = new Vector3(player.transform.position.x,mountPoint0.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
+            coins1.transform.position = new Vector3(player.transform.position.x,mountPoint1.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
+            coins2.transform.position = new Vector3(player.transform.position.x,mountPoint2.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
+
+            coins0.transform.parent = parent_transform;
+            coins1.transform.parent = parent_transform;
+            coins2.transform.parent = parent_transform;
             while (!finishedCollectingCoins)
             {
                 Debug.Log("Collecting Coins...!!");

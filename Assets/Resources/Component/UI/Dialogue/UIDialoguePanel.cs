@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UI;
 using Manager;
 using UnityEngine.Rendering.UI;
+using System.Linq;
 
 namespace UIDialogue
 {
@@ -162,11 +163,11 @@ namespace UIDialogue
 
         public void DisplayNextSentence()
         {
-            if (m_SentencesQueue.Count == 0)
+            if (!m_SentencesQueue.Any())
             {
                 Hide();
                 //手动调用消失
-
+                return;
             }
 
 

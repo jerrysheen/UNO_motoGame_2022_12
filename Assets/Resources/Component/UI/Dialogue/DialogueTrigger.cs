@@ -38,7 +38,7 @@ namespace UIDialogue
 		{
 			var singleDialogue = dialogueMapData.mapData.Find(x => x.name == dialogueName);
 			if (singleDialogue == null) return;
-			UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+			UIManager.getInstance.Open<	UIDialoguePanel>(singleDialogue.singleDialogueData);
 		}
 	}
 	
