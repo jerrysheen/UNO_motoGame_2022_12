@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
+using UIDialogue;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
 namespace Manager
@@ -20,7 +24,7 @@ public class GameManager :  SingletonMono<GameManager>
         }
 
         public GuideProcedure currGuideProcedure;
-        public Action<string> OnStoryLineChange;
+        public Action<string> OnDialogueFinished;
 
         public bool receivedInputUp;
         public bool receivedInputDown;
@@ -33,7 +37,14 @@ public class GameManager :  SingletonMono<GameManager>
         public float midCanvasMoveSpeed = 25.0f;
         public float farCanvasMoveSpeed = 15.0f;
         public float backGroundCanvasMoveSpeed = 10.0f;
+        
+        public DialogueMap dialogueMapData;
+        private bool finishedMotoMoveControlDialogue = false;
 
+        private GameObject CoinPrefab;
+        private bool finishedCollectingCoins = false;
+
+        public GameObject player;
         protected override void Awake()
         {
             base.Awake();
@@ -42,6 +53,10 @@ public class GameManager :  SingletonMono<GameManager>
             currGuideProcedure = GuideProcedure.Conversation0;
             receivedInputUp = false;
             receivedInputDown = false;
+            finishedMotoMoveControlDialogue = false;
+            finishedCollectingCoins = false;
+            
+            if(!player) player = GameObject.Find("Player");
         }
 
         public void ColliderWithSomeThing(CollectableItemType type, int value)
@@ -74,18 +89,111 @@ public class GameManager :  SingletonMono<GameManager>
             GuideProcedureChange();
         }
 
-        public void GoToNextStoryLine(string name)
+        private void Start()
         {
-            if(OnStoryLineChange != null)
-            OnStoryLineChange(name);
+
+            //StartCoroutine(WaitUIPanelInit());
+            AsyncOperationHandle<GameObject> opHandle = Addressables.LoadAsset<GameObject>("Coin");
+
+            if (opHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                CoinPrefab = opHandle.Result;
+            }
         }
 
-        void GuideProcedureChange() 
-        { 
+        // IEnumerator WaitUIPanelInit()
+        // {
+        //     yield return null;
+        //     UIDialoguePanel currPanel =  UIManager.getInstance._uiList["UIDialoguePanel"] as UIDialoguePanel;
+        //     
+        //     if (currPanel)
+        //     {
+        //         currPanel.OnDialogueFinishedPlay += DialogueFinishedCallback;
+        //     }
+        //     else{
+        //         Debug.Log("Error: no panel UI find");
+        //     }
+        // }
+        //
+        // private void OnDestory()
+        // {
+        //     UIDialoguePanel currPanel =  UIManager.getInstance._uiList["UIDialoguePanel"] as UIDialoguePanel;
+        //     if (currPanel)
+        //     {
+        //         currPanel.OnDialogueFinishedPlay -= DialogueFinishedCallback;
+        //     }
+        // }
+
+
+        // void DialogueFinishedCallback(string name)
+        // {
+        //     Debug.Log("Finished dialogue : " + name);
+        //     switch (name)
+        //     {
+        //         case "CutScene01":
+        //             FinishedMotoMoveControlDialogue = true;
+        //             break;
+        //     }
+        // }
+
+        public void FinishedDialogue(string name)
+        {
+            switch (name)
+            {
+                
+                case "CutScene00":
+                    Debug.Log("Finished play CutScene 00 dialogue");
+                    if (OnDialogueFinished != null)
+                    {
+                        OnDialogueFinished("CutScene00");
+                    }
+                    break;
+                
+                case "CutScene01":
+                    Debug.Log("Finished play CutScene 01 dialogue");
+                    finishedMotoMoveControlDialogue = true;
+                    break;
+                
+                case "CutScene03":
+                    Debug.Log("Finished play CutScene 03 dialogue");
+                    StartCoroutine(ListenToCollecttingOrange());
+                    break;
+            }
+        }
+
+        void GuideProcedureChange()
+        {
             switch(currGuideProcedure) 
             {
                 case GuideProcedure.MotoMoveControl:
+                    Debug.Log("Switch to moto ctrl");
+                    // 先播放对话，再控制检测
+                    var singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene01");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
                     StartCoroutine(ListenToMotoControl());
+
+                    break;
+                
+                case GuideProcedure.Joking:
+                    Debug.Log("Switch to Joking");
+                    // 
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene02");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    if (OnDialogueFinished != null)
+                    {
+                        OnDialogueFinished("CutScene02");
+                    }
+                    break;
+                
+                case GuideProcedure.CollectingOrange:
+                    Debug.Log("Switch to Collecting");
+                    // 
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene03");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+ 
                     break;
             }
         
@@ -94,13 +202,38 @@ public class GameManager :  SingletonMono<GameManager>
 
         IEnumerator ListenToMotoControl() 
         {
-            while (!receivedInputDown && !receivedInputUp) 
+            while (!receivedInputDown || !receivedInputUp)
             {
-                Debug.Log("Listen");
-                Debug.Log(Input.GetAxis("Vertical"));
+                if (finishedMotoMoveControlDialogue)
+                {
+                    if (Input.GetAxis("Vertical") < 0.0f)
+                    {
+                        receivedInputDown = true;
+                    }
+                    if (Input.GetAxis("Vertical") > 0.0f)
+                    {
+                        receivedInputUp = true;
+                    }
+                }
                 yield return null;
             }
+            
+            SetGuideProcedure(GuideProcedure.Joking);
+        }
         
+        IEnumerator ListenToCollecttingOrange()
+        {
+            Debug.Log("Start");
+            GameObject coins = Instantiate(CoinPrefab);
+            coins.transform.position = player.transform.position;
+            while (!finishedCollectingCoins)
+            {
+                Debug.Log("Collecting Coins...!!");
+                
+                yield return null;
+            }
+            
+            //SetGuideProcedure(GuideProcedure.Joking);
         }
 
 

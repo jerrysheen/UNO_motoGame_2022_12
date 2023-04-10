@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UI;
 using Manager;
+using UnityEngine.Rendering.UI;
 
 namespace UIDialogue
 {
@@ -15,7 +16,6 @@ namespace UIDialogue
 
     public class UIDialoguePanel : MonoBehaviour, IHomeUI
     {
-        
         public RectTransform panelRoot;
         
         public GameObject rootCanvasGO;
@@ -110,6 +110,7 @@ namespace UIDialogue
 
         private void Show(params object[] datas)
         {
+            Debug.Log("Dialogue Open!");
             //if (rootCanvasGO.activeSelf || datas == null || datas.Length == 0) return;
             if(!rootCanvasGO.activeSelf)rootCanvasGO.SetActive(true);
             if(!panelRoot.gameObject.activeSelf) panelRoot.gameObject.SetActive(true);
@@ -121,17 +122,27 @@ namespace UIDialogue
 
         public void Hide()
         {
+                        if (GameManager.getInstance && currDialogue)
+                        {
+                            Debug.Log(GameManager.getInstance);
+                            Debug.Log(currDialogue);
+                            GameManager.getInstance.FinishedDialogue(currDialogue.name);
+                        }
+                        
 
 
-            dialogueDisplayAnim.SetBool("PlayDialogue", false);
+
+            
             m_displayState = DialogueDisplayState.Disable;
-            StartCoroutine(DelayDisable(2.5f));
+            StartCoroutine(DelayDisable(4.5f));
             //rootCanvasGO.SetActive(false);
         }
 
         IEnumerator DelayDisable(float time)
         {
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSeconds(time / 2.0f);
+            dialogueDisplayAnim.SetBool("PlayDialogue", false);
+            yield return new WaitForSeconds(time / 2.0f);
             panelRoot.gameObject.SetActive(false);
         }
 
@@ -153,17 +164,11 @@ namespace UIDialogue
         {
             if (m_SentencesQueue.Count == 0)
             {
-                //Hide();
+                Hide();
                 //手动调用消失
-                if (GameManager.getInstance && currDialogue)
-                {
-                    Debug.Log(GameManager.getInstance);
-                    Debug.Log(currDialogue);
-                    GameManager.getInstance.GoToNextStoryLine(currDialogue.name);
-                }
 
-                return;
             }
+
 
             var currSentence = m_SentencesQueue.Dequeue();
             

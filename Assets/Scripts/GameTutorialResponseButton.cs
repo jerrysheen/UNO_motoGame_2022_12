@@ -8,12 +8,12 @@ using UnityEngine;
 
 public class GameTutorialResponseButton : MonoBehaviour
 {
-    // ’‚∏ˆµÿ∑ΩŒ™¡À ±º‰∑Ω±„œ»–¥À¿
+    // Ëøô‰∏™Âú∞Êñπ‰∏∫‰∫ÜÊó∂Èó¥Êñπ‰æøÂÖàÂÜôÊ≠ª
     // Start is called before the first frame update
-    string buttonA00 = "÷™µ¿";
-    string buttonB00 = "µ±»ª¡À";
-    string buttonA01 = "°≠°≠";
-    string buttonB01 = "Rubyƒ„…Ÿ¿¥";
+    string buttonA00 = "Áü•ÈÅì";
+    string buttonB00 = "ÂΩìÁÑ∂‰∫Ü";
+    string buttonA01 = "‚Ä¶‚Ä¶";
+    string buttonB01 = "Ruby‰Ω†Â∞ëÊù•";
 
 
     private string currDialogueName;
@@ -24,7 +24,7 @@ public class GameTutorialResponseButton : MonoBehaviour
 
     void Start()
     {
-        GameManager.getInstance.OnStoryLineChange += _OnStroyLineChange;
+        GameManager.getInstance.OnDialogueFinished += _OnStroyLineChange;
         AnswerText1 = GameObject.Find("AnswerText1")?.GetComponent<TextMeshProUGUI>();
         AnswerText0 =  GameObject.Find("AnswerText0")?.GetComponent<TextMeshProUGUI>();
         if (AnswerText0 == null || AnswerText1 == null) 
@@ -40,28 +40,28 @@ public class GameTutorialResponseButton : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.getInstance.OnStoryLineChange -= _OnStroyLineChange;
+        GameManager.getInstance.OnDialogueFinished -= _OnStroyLineChange;
     }
 
 
     void _OnStroyLineChange(string name) 
     {
         currDialogueName = name;
-        Debug.Log(name);
+        Debug.Log("Called On StoryLine Change : " + name);
         switch (name)
         {
-            // "÷™µ¿"; "µ±»ª¡À";
+            // "Áü•ÈÅì"; "ÂΩìÁÑ∂‰∫Ü";
             case "CutScene00":
                 AnswerText0.text = buttonA00;
-                AnswerText1.text = buttonA01;
+                AnswerText1.text = buttonB00;
                 currAnimator.SetTrigger("StartDialogue");
                 break;
 
-            //"°≠°≠";  "Rubyƒ„…Ÿ¿¥";
+            //"‚Ä¶‚Ä¶";  "Ruby‰Ω†Â∞ëÊù•";
             case "CutScene02":
                 AnswerText0.text = buttonA01;
-                AnswerText1.text = buttonA01;
-                currAnimator.SetTrigger("DialogueOver");
+                AnswerText1.text = buttonB01;
+                currAnimator.SetTrigger("StartDialogue");
                 break;
 
                 break;
@@ -86,15 +86,6 @@ public class GameTutorialResponseButton : MonoBehaviour
             currAnimator.SetTrigger("DialogueOver");
         }
         Debug.Log("TestTrigger");
-        var tempUI = UIManager.getInstance._uiList["UIDialoguePanel"] as UIDialoguePanel;
-        if (!tempUI)
-        {
-            Debug.Log("Not Exits!!!");
-        }
-        else 
-        {
-            tempUI.Hide();
-        }
         StartCoroutine(DelaySend(1.0f));
         
     }
@@ -111,7 +102,7 @@ public class GameTutorialResponseButton : MonoBehaviour
                 break;
 
             case "CutScene02":
-                GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.MotoMoveControl);
+                GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.CollectingOrange);
                 break;
 
         }
