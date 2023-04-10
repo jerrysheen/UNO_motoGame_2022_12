@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 123799936}
   - component: {fileID: 123799935}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AnswerText0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2077,7 +2077,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 479381631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1626712767}
+        m_TargetAssemblyTypeName: GameTutorialResponseButton, Assembly-CSharp
+        m_MethodName: OnMouseUpAsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &479381631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11838,7 +11850,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1875934429}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1626712767}
+        m_TargetAssemblyTypeName: GameTutorialResponseButton, Assembly-CSharp
+        m_MethodName: OnMouseUpAsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1875934429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12214,7 +12238,7 @@ GameObject:
   - component: {fileID: 1960138523}
   - component: {fileID: 1960138522}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AnswerText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

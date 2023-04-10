@@ -2,6 +2,8 @@ using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UI;
+using UIDialogue;
 using UnityEngine;
 
 public class GameTutorialResponseButton : MonoBehaviour
@@ -13,6 +15,8 @@ public class GameTutorialResponseButton : MonoBehaviour
     string buttonA01 = "°≠°≠";
     string buttonB01 = "Rubyƒ„…Ÿ¿¥";
 
+
+    private string currDialogueName;
     TextMeshProUGUI AnswerText1;
     TextMeshProUGUI AnswerText0;
     Animator currAnimator;
@@ -42,6 +46,7 @@ public class GameTutorialResponseButton : MonoBehaviour
 
     void _OnStroyLineChange(string name) 
     {
+        currDialogueName = name;
         Debug.Log(name);
         switch (name)
         {
@@ -72,5 +77,43 @@ public class GameTutorialResponseButton : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnMouseUpAsButton()
+    {
+        if (currAnimator != null) 
+        {
+            currAnimator.SetTrigger("DialogueOver");
+        }
+        Debug.Log("TestTrigger");
+        var tempUI = UIManager.getInstance._uiList["UIDialoguePanel"] as UIDialoguePanel;
+        if (!tempUI)
+        {
+            Debug.Log("Not Exits!!!");
+        }
+        else 
+        {
+            tempUI.Hide();
+        }
+        StartCoroutine(DelaySend(1.0f));
+        
+    }
+
+    IEnumerator DelaySend(float time) 
+    {
+        yield return new WaitForSeconds(time);
+        Debug.Log("TestTrigger");
+        switch (currDialogueName)
+        {
+            case "CutScene00":
+                GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.MotoMoveControl);
+                Debug.Log(GameManager.getInstance.currGuideProcedure);
+                break;
+
+            case "CutScene02":
+                GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.MotoMoveControl);
+                break;
+
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace UI
 
     public class UIManager : SingletonMono<UIManager>
     {
-        private Dictionary<string, IHomeUI> _uiList = new Dictionary<string, IHomeUI>();
+        public Dictionary<string, IHomeUI> _uiList = new Dictionary<string, IHomeUI>();
 
         public void AddUI(IHomeUI ui)
         {

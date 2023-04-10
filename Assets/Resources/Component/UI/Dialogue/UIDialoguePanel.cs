@@ -119,14 +119,8 @@ namespace UIDialogue
             m_displayState = DialogueDisplayState.Show;
         }
 
-        private void Hide()
+        public void Hide()
         {
-            if (GameManager.getInstance && currDialogue) 
-            {
-                Debug.Log(GameManager.getInstance);
-                Debug.Log(currDialogue);
-                GameManager.getInstance.GoToNextStoryLine(currDialogue.name);
-            }
 
 
             dialogueDisplayAnim.SetBool("PlayDialogue", false);
@@ -159,7 +153,15 @@ namespace UIDialogue
         {
             if (m_SentencesQueue.Count == 0)
             {
-                Hide();
+                //Hide();
+                //手动调用消失
+                if (GameManager.getInstance && currDialogue)
+                {
+                    Debug.Log(GameManager.getInstance);
+                    Debug.Log(currDialogue);
+                    GameManager.getInstance.GoToNextStoryLine(currDialogue.name);
+                }
+
                 return;
             }
 

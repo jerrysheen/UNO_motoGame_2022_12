@@ -10,9 +10,20 @@ namespace Manager
 public class GameManager :  SingletonMono<GameManager>
 {
 
+        public enum GuideProcedure 
+        {
+
+            Conversation0,
+            MotoMoveControl,
+            Joking,
+            CollectingOrange,
+        }
+
+        public GuideProcedure currGuideProcedure;
         public Action<string> OnStoryLineChange;
 
-
+        public bool receivedInputUp;
+        public bool receivedInputDown;
         //public static event Action<int> onGameStateChanged;
         public Action<int> OnScoreValueChange; 
         public int score = 0;
@@ -28,6 +39,9 @@ public class GameManager :  SingletonMono<GameManager>
             base.Awake();
             // maybe later will change
             score = 0;
+            currGuideProcedure = GuideProcedure.Conversation0;
+            receivedInputUp = false;
+            receivedInputDown = false;
         }
 
         public void ColliderWithSomeThing(CollectableItemType type, int value)
@@ -54,12 +68,44 @@ public class GameManager :  SingletonMono<GameManager>
             OnScoreValueChange(-value);
         }
 
+        public void SetGuideProcedure(GuideProcedure procecure) 
+        {
+            currGuideProcedure = procecure;
+            GuideProcedureChange();
+        }
 
         public void GoToNextStoryLine(string name)
         {
             if(OnStoryLineChange != null)
             OnStoryLineChange(name);
         }
+
+        void GuideProcedureChange() 
+        { 
+            switch(currGuideProcedure) 
+            {
+                case GuideProcedure.MotoMoveControl:
+                    StartCoroutine(ListenToMotoControl());
+                    break;
+            }
+        
+        }
+
+
+        IEnumerator ListenToMotoControl() 
+        {
+            while (!receivedInputDown && !receivedInputUp) 
+            {
+                Debug.Log("Listen");
+                Debug.Log(Input.GetAxis("Vertical"));
+                yield return null;
+            }
+        
+        }
+
+
+
+
 
     }
 
