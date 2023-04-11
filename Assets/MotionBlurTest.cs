@@ -16,7 +16,7 @@ public class MotionBlurTest : MonoBehaviour
 
     public GameObject virtualCam00;
     public GameObject virtualCam01;
-
+    public GameObject globalVolume;
 
     public Animator wheelAnimator;
     public float animatorMaxPlaySpeed = 1.5f;
@@ -28,11 +28,14 @@ public class MotionBlurTest : MonoBehaviour
         currSpeed = 0.0f;
         wheelAnimator = GetComponent<Animator>();
         animatorCurrSpeed = 1.0f;
+        globalVolume = GameObject.Find("GlobalVolume");
+        globalVolume.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        this.transform.position += Vector3.right * Time.deltaTime * 18.0f;
         if (needAccerrate) 
         {
             this.transform.position = this.transform.position + currSpeed * Time.deltaTime * Vector3.right;
@@ -53,7 +56,7 @@ public class MotionBlurTest : MonoBehaviour
 
     IEnumerator AccerlerateDuration(float time) 
     {
-
+        globalVolume.SetActive(true);
         needAccerrate = true;
         virtualCam01.SetActive(true);
         while (time > 0) 
@@ -79,6 +82,7 @@ public class MotionBlurTest : MonoBehaviour
         }
         needAccerrate = false;
         currSpeed = 0.0f;
+        globalVolume.SetActive(false);
     }
 
     IEnumerator AnimatorSppedUpDuration(float time)

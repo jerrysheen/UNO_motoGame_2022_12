@@ -105,7 +105,7 @@ public class GameManager :  SingletonMono<GameManager>
 
             //StartCoroutine(WaitUIPanelInit());
             AsyncOperationHandle<GameObject> opHandle = Addressables.LoadAssetAsync<GameObject>("CoinTutorial");
-            yield return null;
+            yield return new WaitForSeconds(1.0f);
             if (opHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 CoinPrefab = opHandle.Result;
