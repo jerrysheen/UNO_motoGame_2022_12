@@ -111,6 +111,7 @@ namespace UIDialogue
 
         private void Show(params object[] datas)
         {
+            PlayPhoneMusic();
             Debug.Log("Dialogue Open!");
             //if (rootCanvasGO.activeSelf || datas == null || datas.Length == 0) return;
             if(!rootCanvasGO.activeSelf)rootCanvasGO.SetActive(true);
@@ -199,6 +200,30 @@ namespace UIDialogue
                 conversation.text += letter; 
                 yield return new WaitForSeconds(displaySentenceSpeed);
             }
+        }
+
+
+        public AudioClip phoneMusic;
+        public AudioClip buttonClickMusic;
+        public void PlayPhoneMusic()
+        {
+            var Go = GameObject.Find("OtherSound");
+            if (!Go) return;
+            AudioSource tempSource = Go.GetComponent<AudioSource>();
+            tempSource.clip = phoneMusic;
+            tempSource.loop = false;
+            tempSource.Play();
+        }
+
+        public void PlayButtonClickMusic()
+        {
+            var Go = GameObject.Find("OtherSound");
+            if (!Go) return;
+            AudioSource tempSource = Go.GetComponent<AudioSource>();
+            tempSource.clip = buttonClickMusic;
+            tempSource.loop = false;
+            tempSource.Play();
+            
         }
     }
 }

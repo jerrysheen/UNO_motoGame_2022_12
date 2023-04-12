@@ -251,7 +251,19 @@ namespace UI
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
+        }
+        
+        public AudioClip buttonClickMusic;
 
+        public void PlayButtonClickMusic()
+        {
+            var Go = GameObject.Find("OtherSound");
+            if (!Go) return;
+            AudioSource tempSource = Go.GetComponent<AudioSource>();
+            tempSource.clip = buttonClickMusic;
+            tempSource.loop = false;
+            tempSource.Play();
+            
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class MotionBlurTest : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class MotionBlurTest : MonoBehaviour
     public float animatorMaxPlaySpeed = 1.5f;
     public float animatorCurrSpeed = 1.0f;
     // Start is called before the first frame update
+
+    private MotionBlur motionBlur;
     void Start()
     {
         needAccerrate = false;
@@ -29,7 +33,11 @@ public class MotionBlurTest : MonoBehaviour
         wheelAnimator = GetComponent<Animator>();
         animatorCurrSpeed = 1.0f;
         globalVolume = GameObject.Find("GlobalVolume");
-        globalVolume.SetActive(false);
+        var volume = globalVolume.GetComponent<Volume>();
+        
+        volume.profile.TryGet(out motionBlur);
+        //motionBlur.active = false;
+
     }
 
     // Update is called once per frame
@@ -56,7 +64,7 @@ public class MotionBlurTest : MonoBehaviour
 
     IEnumerator AccerlerateDuration(float time) 
     {
-        globalVolume.SetActive(true);
+        //motionBlur.active = (true);
         needAccerrate = true;
         virtualCam01.SetActive(true);
         while (time > 0) 
@@ -82,7 +90,7 @@ public class MotionBlurTest : MonoBehaviour
         }
         needAccerrate = false;
         currSpeed = 0.0f;
-        globalVolume.SetActive(false);
+        //motionBlur.active = (false);
     }
 
     IEnumerator AnimatorSppedUpDuration(float time)

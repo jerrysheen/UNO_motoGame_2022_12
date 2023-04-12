@@ -11,7 +11,7 @@ public class CollectableItemInTutorial : MonoBehaviour
     public string otherColliderName = "player";
     public  int damageValue = 0;
     public Animator animator;
-
+    public AudioClip soundEffect;
 
     public bool disableAfterCollision = true;
     public float delayTime = 1.0f;
@@ -70,7 +70,12 @@ public class CollectableItemInTutorial : MonoBehaviour
     /// </summary>
     public void PlayCollisionEffect()
     {
-        
+        var Go = GameObject.Find("OtherSound");
+        if (!Go) return;
+        AudioSource tempSource = Go.GetComponent<AudioSource>();
+        tempSource.clip = soundEffect;
+        tempSource.loop = false;
+        tempSource.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D other)

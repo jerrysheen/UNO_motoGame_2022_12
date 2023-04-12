@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
   m_Shader: {fileID: 4800000, guid: 14c70fe443bc40441b9f9e4c67d2eacd, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,6 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -46,15 +49,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BlurPicStartOffset: 0.43
+    - _BlurPicStartOffset: 0.69
     - _EnableExternalAlpha: 0
-    - _ScreenWaveAtten: 0.41
-    - _ScreenWaveOffset: 0.38
-    - _ScrollingSpeed: 13.95
+    - _ScreenWaveAtten: 0.56
+    - _ScreenWaveOffset: 0.4
+    - _ScrollingSpeed: 1.15
     - _WaveDistortion: 0.41
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _MainTexColor: {r: 0.6415094, g: 0.5713065, b: 0.5713065, a: 0.96862745}
+    - _MainTexColor: {r: 0.8207547, g: 0.6828235, b: 0.42973477, a: 0.96862745}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
