@@ -30,6 +30,7 @@ public class CharecterPicking : MonoBehaviour
     private GameObject CharecterC;
 
     public bool isInSelectedStage = true;
+    public bool isButtonEnter = false;
     public CHARECTER currCharector;
     void Start()
     {
@@ -99,9 +100,10 @@ public class CharecterPicking : MonoBehaviour
                     break;
             }
 
-            if (Input.GetAxis("Submit") > 0.0f)
+            if (Input.GetAxis("Submit") > 0.0f && !isButtonEnter)
             {
                 StartCoroutine(PlayEnterGameEffect());
+                isButtonEnter = true;
             }
         }
     }
@@ -110,6 +112,7 @@ public class CharecterPicking : MonoBehaviour
     {
         // play animation
         yield return null;
+        GameManager.getInstance.SetPlayer(currCharector);
         GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.Conversation0);
         rootPanel.SetActive(false);
     }

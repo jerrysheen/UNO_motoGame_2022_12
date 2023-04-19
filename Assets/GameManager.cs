@@ -5,6 +5,7 @@ using UI;
 using UIDialogue;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 
@@ -52,6 +53,13 @@ public class GameManager :  SingletonMono<GameManager>
         public GameObject mountPoint2;
 
 
+        [Header("Prefab Gameobject")] 
+        public CharecterPicking.CHARECTER currCharecter;
+        public GameObject playerPrefab0;
+        public GameObject playerPrefab1;
+        public GameObject playerPrefab2;
+                
+                
         private GameObject coins0;
         private GameObject coins1;
         private GameObject coins2;
@@ -114,6 +122,11 @@ public class GameManager :  SingletonMono<GameManager>
             {
                 Debug.LogError("No resource");
             }
+        }
+
+        public void SetPlayer(CharecterPicking.CHARECTER _charecter)
+        {
+            currCharecter = _charecter;
         }
 
         // IEnumerator WaitUIPanelInit()
@@ -181,6 +194,27 @@ public class GameManager :  SingletonMono<GameManager>
             switch(currGuideProcedure) 
             {
                 case GuideProcedure.Conversation0:
+                    var player = GameObject.Find("Player");
+                    var carPart = player.transform.Find("carPart");
+                    GameObject mountPoint = carPart.transform.Find("MountPoint").gameObject;
+                    switch (currCharecter)
+                    {
+                        case CharecterPicking.CHARECTER.CharecterA:
+                            GameObject tempObj = Instantiate(playerPrefab0);
+                            tempObj.transform.parent = mountPoint.transform;
+                            tempObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            break;
+                        case CharecterPicking.CHARECTER.CharecterB:
+                            tempObj = Instantiate(playerPrefab1);
+                            tempObj.transform.parent = mountPoint.transform;
+                            tempObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            break;
+                        case CharecterPicking.CHARECTER.CharecterC:
+                            tempObj = Instantiate(playerPrefab2);
+                            tempObj.transform.parent = mountPoint.transform;
+                            tempObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            break;
+                    }
                     var singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene00");
                     if (singleDialogue == null) return;
                     UIManager.getInstance.Open<	UIDialoguePanel>(singleDialogue.singleDialogueData);
