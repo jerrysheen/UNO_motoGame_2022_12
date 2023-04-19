@@ -113,7 +113,6 @@ namespace UIDialogue
         {
             PlayPhoneMusic();
             Debug.Log("Dialogue Open!");
-            //if (rootCanvasGO.activeSelf || datas == null || datas.Length == 0) return;
             if(!rootCanvasGO.activeSelf)rootCanvasGO.SetActive(true);
             if(!panelRoot.gameObject.activeSelf) panelRoot.gameObject.SetActive(true);
             dialogueDisplayAnim.SetBool("PlayDialogue", true);

@@ -16,7 +16,7 @@ public class GameManager :  SingletonMono<GameManager>
 
         public enum GuideProcedure 
         {
-
+            SelectCharector,
             Conversation0,
             MotoMoveControl,
             Joking,
@@ -61,7 +61,7 @@ public class GameManager :  SingletonMono<GameManager>
             base.Awake();
             // maybe later will change
             score = 0;
-            currGuideProcedure = GuideProcedure.Conversation0;
+            currGuideProcedure = GuideProcedure.SelectCharector;
             receivedInputUp = false;
             receivedInputDown = false;
             finishedMotoMoveControlDialogue = false;
@@ -180,10 +180,15 @@ public class GameManager :  SingletonMono<GameManager>
         {
             switch(currGuideProcedure) 
             {
+                case GuideProcedure.Conversation0:
+                    var singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene00");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<	UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    break;
                 case GuideProcedure.MotoMoveControl:
                     Debug.Log("Switch to moto ctrl");
                     // 先播放对话，再控制检测
-                    var singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene01");
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene01");
                     if (singleDialogue == null) return;
                     UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
                     StartCoroutine(ListenToMotoControl());
