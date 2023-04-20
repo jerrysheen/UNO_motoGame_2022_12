@@ -60,7 +60,17 @@ public class CollectableItemInTutorial : MonoBehaviour
     IEnumerator DelayDestroy(float time) 
     {
         yield return new WaitForSeconds(time);
-        GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.Finished);
+            switch (itemType)
+            {
+                case CollectableItemType.Coin:
+                    GameManager.getInstance.FinishedCollectingCoins();
+                    break;
+                case CollectableItemType.Mine:
+                    GameManager.getInstance.FinishedMeetMine();
+                    break;
+            }
+
+
         Destroy(this.gameObject);
     }
 

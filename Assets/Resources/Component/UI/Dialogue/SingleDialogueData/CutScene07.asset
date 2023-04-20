@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 347724680857a394e95d262375349711, type: 3}
-  m_Name: CutScene04
+  m_Name: CutScene07
   m_EditorClassIdentifier: 
   npcNameA: Ruby
   npcNameB: Sabrina
   characterASprite: {fileID: 21300000, guid: e8705c06bf2e45b4493580a969505e58, type: 3}
   characterBSprite: {fileID: 21300000, guid: e8705c06bf2e45b4493580a969505e58, type: 3}
   conversations:
-  - words: "\u5BF9\uFF0C\u5C31\u662F\u90A3\u4E2A\uFF0C\u591A\u6536\u96C6\u4E00\u4E9B\u5E26\u7ED9\u6211\uFF0C\u6211\u53EF\u4EE5\u7ED9\u4F60\u89E3\u9501\u4E00\u4E9B\u65B0\u7684\u5EA7\u9A7E\u54E6\u3002"
+  - words: "\u597D\u4E86\uFF0C\u795D\u4F60\u4E00\u8DEF\u987A\u5229\uFF01\u6211\u4EEC\u5728Ruby\u2019s\u89C1\uFF01"
     owners: 0

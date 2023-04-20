@@ -49,7 +49,7 @@ public class CollectableItem : MonoBehaviour
         Debug.Log(otherColliderName);
         if (other.gameObject.tag.Equals(otherColliderName, StringComparison.Ordinal))
         {
-            Debug.Log("Test");
+            Debug.Log(itemType.ToString());
             if(animator)animator.SetTrigger("Disapear");
             GameManager.getInstance.ColliderWithSomeThing(itemType, damageValue);
             // should I add a pool here?

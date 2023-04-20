@@ -6,7 +6,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 
-public class ScoreUIPanel : MonoBehaviour,IHomeUI
+public class HeartUIPanel : MonoBehaviour,IHomeUI
 {
     private TextMeshProUGUI currText;
 
@@ -22,8 +22,8 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
         }
         GameManager.getInstance.OnScoreValueChange += OnScoreChange;
         currText = GetComponent<TextMeshProUGUI>();
-        currText.text = 0.ToString();
-        currScore = 0;
+        currText.text = 4.ToString();
+        currScore = 4;
     }
     
     private void OnDestroy()
@@ -46,8 +46,8 @@ public class ScoreUIPanel : MonoBehaviour,IHomeUI
     
     void OnScoreChange(int score)
     {
-        // mo ren ruguo xiaoyu 0, ze buhui shi chijuzi
-        if (score < 0) return;
+        // mo ren ruguo dayu 0, ze buhui shi xueliang 
+        if (score > 0) return;
         currScore += score;
         currText.text = currScore.ToString();
     }

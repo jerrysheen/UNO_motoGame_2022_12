@@ -22,6 +22,9 @@ public class GameManager :  SingletonMono<GameManager>
             MotoMoveControl,
             Joking,
             CollectingOrange,
+            CollectedOrangeFinish,
+            MeetMineTutorial,
+            MeetMineTutorialFinish,
             Finished
         }
 
@@ -44,7 +47,9 @@ public class GameManager :  SingletonMono<GameManager>
         private bool finishedMotoMoveControlDialogue = false;
 
         private GameObject CoinPrefab;
+        private GameObject TrapPrefab;
         private bool finishedCollectingCoins = false;
+        private bool finishedMeetMine = false;
 
         public GameObject player;
         public float tutorialOrangeDistanceFromPeople = 30.0f;
@@ -74,6 +79,7 @@ public class GameManager :  SingletonMono<GameManager>
             receivedInputDown = false;
             finishedMotoMoveControlDialogue = false;
             finishedCollectingCoins = false;
+            finishedMeetMine = false;
             
             if(!player) player = GameObject.Find("Player");
         }
@@ -99,7 +105,7 @@ public class GameManager :  SingletonMono<GameManager>
         
         private void DealWithMine(int value)
         {
-            OnScoreValueChange(-value);
+            OnScoreValueChange(value);
         }
 
         public void SetGuideProcedure(GuideProcedure procecure) 
@@ -117,6 +123,18 @@ public class GameManager :  SingletonMono<GameManager>
             if (opHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 CoinPrefab = opHandle.Result;
+            }
+            else 
+            {
+                Debug.LogError("No resource");
+            }
+            
+            //StartCoroutine(WaitUIPanelInit());
+            opHandle = Addressables.LoadAssetAsync<GameObject>("Trap");
+            yield return new WaitForSeconds(1.0f);
+            if (opHandle.Status == AsyncOperationStatus.Succeeded)
+            {
+                TrapPrefab = opHandle.Result;
             }
             else 
             {
@@ -186,6 +204,17 @@ public class GameManager :  SingletonMono<GameManager>
                     Debug.Log("Finished play CutScene 03 dialogue");
                     StartCoroutine(ListenToCollecttingOrange());
                     break;
+                
+                case "CutScene04":
+                    Debug.Log("Finished play CutScene 04dialogue");
+                    SetGuideProcedure(GuideProcedure.MeetMineTutorial);
+                    break;
+                
+                case "CutScene05":
+                    Debug.Log("Finished play CutScene 05dialogue");
+                    StartCoroutine(ListenToMeetMine());
+
+                    break;
             }
         }
 
@@ -250,15 +279,34 @@ public class GameManager :  SingletonMono<GameManager>
  
                     break;
 
-                case GuideProcedure.Finished:
+                case GuideProcedure.CollectedOrangeFinish:
                     Debug.Log("Switch to Finished");
                     // 
                     singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene04");
                     if (singleDialogue == null) return;
                     UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
-                    if(coins0.activeSelf) Destroy(coins0);
-                    if(coins1.activeSelf) Destroy(coins1);
-                    if(coins2.activeSelf) Destroy(coins2);
+                    if(coins0 &&coins0.activeSelf) Destroy(coins0);
+                    if(coins1 &&coins1.activeSelf) Destroy(coins1);
+                    if(coins2 &&coins2.activeSelf) Destroy(coins2);
+                    break;
+                
+                case GuideProcedure.MeetMineTutorial:
+                    Debug.Log("Switch to MeetMineTutorial");
+                    // 
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene05");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    break;
+                
+                case GuideProcedure.MeetMineTutorialFinish:
+                    Debug.Log("Switch to Finished");
+                    // 
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene06");
+                    if (singleDialogue == null) return;
+                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    if(coins0 &&coins0.activeSelf) Destroy(coins0);
+                    if(coins1 &&coins1.activeSelf) Destroy(coins1);
+                    if(coins2 &&coins2.activeSelf) Destroy(coins2);
                     break;
             }
         
@@ -320,6 +368,60 @@ public class GameManager :  SingletonMono<GameManager>
             while (!finishedCollectingCoins)
             {
                 Debug.Log("Collecting Coins...!!");
+                
+                yield return null;
+            }
+            
+            //SetGuideProcedure(GuideProcedure.Joking);
+        }
+
+        public void FinishedCollectingCoins()
+        {
+            finishedCollectingCoins = true;
+            SetGuideProcedure(GuideProcedure.CollectedOrangeFinish);
+        }
+        
+        public void FinishedMeetMine()
+        {
+            finishedMeetMine = true;
+            SetGuideProcedure(GuideProcedure.MeetMineTutorialFinish);
+        }
+
+
+        IEnumerator ListenToMeetMine()
+        {
+            Debug.Log("Start Meet Mine");
+            var tempGo = GameObject.Find("CutSceneSwitcher");
+            Transform parent_transform = this.transform;
+            if (tempGo)
+            {
+                var script = tempGo.GetComponent<CutSceneSwitcher>();
+                parent_transform = script.cutSceneCanvas[0].gameObject.transform;
+                for (int i = 1; i < 3; i++) 
+                {
+                    if (parent_transform.position.x < script.cutSceneCanvas[i].gameObject.transform.position.x) 
+                    {
+                        parent_transform = script.cutSceneCanvas[i].gameObject.transform;
+                    }
+                }
+            }
+            else 
+            {
+                Debug.LogError("No CutSceneSwitcher");
+            }
+            coins0 = Instantiate(TrapPrefab);
+            coins1 = Instantiate(TrapPrefab);
+            coins2 = Instantiate(TrapPrefab);
+            coins0.transform.position = new Vector3(player.transform.position.x,mountPoint0.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
+            coins1.transform.position = new Vector3(player.transform.position.x,mountPoint1.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
+            coins2.transform.position = new Vector3(player.transform.position.x,mountPoint2.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
+
+            coins0.transform.parent = parent_transform;
+            coins1.transform.parent = parent_transform;
+            coins2.transform.parent = parent_transform;
+            while (!finishedMeetMine)
+            {
+                Debug.Log("Collecting Trap...!!");
                 
                 yield return null;
             }

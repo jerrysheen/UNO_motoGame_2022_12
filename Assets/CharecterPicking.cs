@@ -111,9 +111,18 @@ public class CharecterPicking : MonoBehaviour
     IEnumerator PlayEnterGameEffect()
     {
         // play animation
-        yield return null;
         GameManager.getInstance.SetPlayer(currCharector);
         GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.Conversation0);
+        
+        yield return null;
+
+        var animator = GetComponent<Animator>();
+        if (animator)
+        {
+            animator.SetTrigger("Disapear");
+        }
+
+        yield return new WaitForSeconds(3.0f);
         rootPanel.SetActive(false);
     }
 }
