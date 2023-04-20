@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: CoinTutorial
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ce68e54fce58b1343a36361d692b7e63
+    m_Address: Trap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1b4081c370bc344a3b90744755299c88, type: 2}
   m_SchemaSet:
