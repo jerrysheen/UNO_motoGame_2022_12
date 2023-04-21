@@ -241,6 +241,13 @@ namespace UI
         {
             Debug.Log("Test");
             SceneManager.LoadScene("CodeTest 1");
+            StartCoroutine(ChangeProcessToTutorialFinished(1.5f));
+        }
+
+        IEnumerator ChangeProcessToTutorialFinished(float time)
+        {
+            yield return new WaitForSeconds(1.5f);
+            Debug.Log("Test this process not being destroy");
         }
 
         public void ExitsButtonClick()

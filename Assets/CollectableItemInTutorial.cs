@@ -59,6 +59,7 @@ public class CollectableItemInTutorial : MonoBehaviour
 
     IEnumerator DelayDestroy(float time) 
     {
+        GameManager.getInstance.ColliderWithSomeThing(itemType, damageValue);
         yield return new WaitForSeconds(time);
             switch (itemType)
             {

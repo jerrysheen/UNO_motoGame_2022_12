@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c02088b500a7c3049b8038a31bf6b24d
   m_SerializeEntries:
-  - m_GUID: fac49aaf9677e3b40bb89b1c7e7b257d
-    m_Address: mq_midCityView_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 56b915bec25c854488a6c2f132a26fdd
     m_Address: mq_farCityView_4
     m_ReadOnly: 0
@@ -35,10 +31,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 64e4843bf218291469e2ecc98148bd5a
     m_Address: mq_midCityView_4
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e71d1558bd3faba49879e6e14b7e3f37
-    m_Address: mq_midCityView_2
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: d2a4dd6ba5967cc4a8db082b64abebd7

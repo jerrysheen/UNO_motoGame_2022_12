@@ -17,6 +17,7 @@ public class GameManager :  SingletonMono<GameManager>
 
         public enum GuideProcedure 
         {
+            SelectScene,
             SelectCharector,
             Conversation0,
             MotoMoveControl,
@@ -25,8 +26,11 @@ public class GameManager :  SingletonMono<GameManager>
             CollectedOrangeFinish,
             MeetMineTutorial,
             MeetMineTutorialFinish,
-            Finished
+            TutorialFinished,
+            AccerrateAfterTutorial,
         }
+        
+        
 
         public GuideProcedure currGuideProcedure;
         public Action<string> OnDialogueFinished;
@@ -56,10 +60,14 @@ public class GameManager :  SingletonMono<GameManager>
         public GameObject mountPoint0;
         public GameObject mountPoint1;
         public GameObject mountPoint2;
+        
+        
+        public GameObject cutSceneSwitcher;
 
 
         [Header("Prefab Gameobject")] 
         public CharecterPicking.CHARECTER currCharecter;
+        public ScenePicking.GameScene currScene;
         public GameObject playerPrefab0;
         public GameObject playerPrefab1;
         public GameObject playerPrefab2;
@@ -69,6 +77,8 @@ public class GameManager :  SingletonMono<GameManager>
         private GameObject coins1;
         private GameObject coins2;
 
+        public GameObject mainCharector;
+        
         protected override void Awake()
         {
             base.Awake();
@@ -80,8 +90,15 @@ public class GameManager :  SingletonMono<GameManager>
             finishedMotoMoveControlDialogue = false;
             finishedCollectingCoins = false;
             finishedMeetMine = false;
+            DontDestroyOnLoad(this);
             
             if(!player) player = GameObject.Find("Player");
+        }
+
+        protected override void DestoryDuplicated()
+        {
+            base.DestoryDuplicated();
+            Destroy(this.gameObject);
         }
 
         public void ColliderWithSomeThing(CollectableItemType type, int value)
@@ -140,11 +157,18 @@ public class GameManager :  SingletonMono<GameManager>
             {
                 Debug.LogError("No resource");
             }
+            
+            cutSceneSwitcher = GameObject.Find("CutSceneSwitcher");
         }
 
         public void SetPlayer(CharecterPicking.CHARECTER _charecter)
         {
             currCharecter = _charecter;
+        }        
+        
+        public void SetScene(ScenePicking.GameScene _charecter)
+        {
+            currScene = _charecter;
         }
 
         // IEnumerator WaitUIPanelInit()
@@ -213,7 +237,12 @@ public class GameManager :  SingletonMono<GameManager>
                 case "CutScene05":
                     Debug.Log("Finished play CutScene 05dialogue");
                     StartCoroutine(ListenToMeetMine());
-
+                    break;
+                case "CutScene06":
+                    SetGuideProcedure(GuideProcedure.TutorialFinished);
+                    break;                
+                case "CutScene07":
+                    SetGuideProcedure(GuideProcedure.AccerrateAfterTutorial);
                     break;
             }
         }
@@ -223,25 +252,25 @@ public class GameManager :  SingletonMono<GameManager>
             switch(currGuideProcedure) 
             {
                 case GuideProcedure.Conversation0:
-                    var player = GameObject.Find("Player");
+                    //var player = GameObject.Find("Player");
                     var carPart = player.transform.Find("carPart");
                     GameObject mountPoint = carPart.transform.Find("MountPoint").gameObject;
                     switch (currCharecter)
                     {
                         case CharecterPicking.CHARECTER.CharecterA:
-                            GameObject tempObj = Instantiate(playerPrefab0);
-                            tempObj.transform.parent = mountPoint.transform;
-                            tempObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            mainCharector = Instantiate(playerPrefab0);
+                            mainCharector.transform.parent = mountPoint.transform;
+                            mainCharector.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                             break;
                         case CharecterPicking.CHARECTER.CharecterB:
-                            tempObj = Instantiate(playerPrefab1);
-                            tempObj.transform.parent = mountPoint.transform;
-                            tempObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            mainCharector = Instantiate(playerPrefab1);
+                            mainCharector.transform.parent = mountPoint.transform;
+                            mainCharector.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                             break;
                         case CharecterPicking.CHARECTER.CharecterC:
-                            tempObj = Instantiate(playerPrefab2);
-                            tempObj.transform.parent = mountPoint.transform;
-                            tempObj.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+                            mainCharector = Instantiate(playerPrefab2);
+                            mainCharector.transform.parent = mountPoint.transform;
+                            mainCharector.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
                             break;
                     }
                     var singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene00");
@@ -295,7 +324,7 @@ public class GameManager :  SingletonMono<GameManager>
                     // 
                     singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene05");
                     if (singleDialogue == null) return;
-                    UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    StartCoroutine(DelayOpenDialogue(singleDialogue.singleDialogueData, 0.5f));
                     break;
                 
                 case GuideProcedure.MeetMineTutorialFinish:
@@ -304,12 +333,61 @@ public class GameManager :  SingletonMono<GameManager>
                     singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene06");
                     if (singleDialogue == null) return;
                     UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue.singleDialogueData);
-                    if(coins0 &&coins0.activeSelf) Destroy(coins0);
-                    if(coins1 &&coins1.activeSelf) Destroy(coins1);
-                    if(coins2 &&coins2.activeSelf) Destroy(coins2);
+                    StartCoroutine(DelayDistroy(1.0f));
+                    break;
+                
+                case GuideProcedure.SelectCharector:
+                    var Go = GameObject.Find("CharectorPicking");
+                    var script = Go.GetComponent<CharecterPicking>();
+                    script.isInSelectedStage = true;
+                    break;
+                
+                case GuideProcedure.TutorialFinished:
+                    StartCoroutine(DelayDistroy(1.0f));
+                    singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene07");
+                    if (singleDialogue == null) return;
+                    StartCoroutine(DelayOpenDialogue(singleDialogue.singleDialogueData, 0.5f));
+                    break;
+                
+                case GuideProcedure.AccerrateAfterTutorial:
+                    StartCoroutine(DelayAccerrate());
                     break;
             }
         
+        }
+
+        IEnumerator DelayAccerrate()
+        {
+            yield return new WaitForSeconds(1.8f);
+            var accerateScript =  player.GetComponent<MotionBlurTest>();
+            accerateScript.Accerlerate();
+            yield return new WaitForSeconds(accerateScript.accerlerateDuration + 0.5f);
+            var script = cutSceneSwitcher.GetComponent<CutSceneSwitcher>();
+            yield return new WaitForSeconds(1.5f);
+            if (script)
+            {
+                script.GoToNextProcess();
+            }
+
+        }
+
+        IEnumerator DelayDistroy(float delayTime)
+        {
+            yield return new WaitForSeconds(delayTime);
+            if(coins0 &&coins0.activeSelf) Destroy(coins0);
+            if(coins1 &&coins1.activeSelf) Destroy(coins1);
+            if(coins2 &&coins2.activeSelf) Destroy(coins2);
+        }        
+        
+        // IEnumerator WaitForNextDialogue(float delayTime)
+        // {
+        //     
+        // }
+
+        IEnumerator DelayOpenDialogue(SingleDialogueObject singleDialogue, float time)
+        {
+            yield return new WaitForSeconds(time);
+            UIManager.getInstance.Open<UIDialoguePanel>(singleDialogue);
         }
 
 
@@ -337,11 +415,11 @@ public class GameManager :  SingletonMono<GameManager>
         IEnumerator ListenToCollecttingOrange()
         {
             Debug.Log("Start");
-            var tempGo = GameObject.Find("CutSceneSwitcher");
+            
             Transform parent_transform = this.transform;
-            if (tempGo)
+            if (cutSceneSwitcher)
             {
-                var script = tempGo.GetComponent<CutSceneSwitcher>();
+                var script = cutSceneSwitcher.GetComponent<CutSceneSwitcher>();
                 parent_transform = script.cutSceneCanvas[0].gameObject.transform;
                 for (int i = 1; i < 3; i++) 
                 {
@@ -383,6 +461,7 @@ public class GameManager :  SingletonMono<GameManager>
         
         public void FinishedMeetMine()
         {
+            Debug.Log("Collecting Mine");
             finishedMeetMine = true;
             SetGuideProcedure(GuideProcedure.MeetMineTutorialFinish);
         }
@@ -415,7 +494,10 @@ public class GameManager :  SingletonMono<GameManager>
             coins0.transform.position = new Vector3(player.transform.position.x,mountPoint0.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
             coins1.transform.position = new Vector3(player.transform.position.x,mountPoint1.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
             coins2.transform.position = new Vector3(player.transform.position.x,mountPoint2.transform.position.y ,player.transform.position.z) + Vector3.right * tutorialOrangeDistanceFromPeople;
-
+            coins0.GetComponent<CollectableItemInTutorial>().itemType = CollectableItemType.Mine;
+            coins1.GetComponent<CollectableItemInTutorial>().itemType = CollectableItemType.Mine;
+            coins2.GetComponent<CollectableItemInTutorial>().itemType = CollectableItemType.Mine;
+            
             coins0.transform.parent = parent_transform;
             coins1.transform.parent = parent_transform;
             coins2.transform.parent = parent_transform;

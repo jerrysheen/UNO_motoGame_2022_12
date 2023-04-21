@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Manager;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -23,6 +24,9 @@ public class MotionBlurTest : MonoBehaviour
     public Animator wheelAnimator;
     public float animatorMaxPlaySpeed = 1.5f;
     public float animatorCurrSpeed = 1.0f;
+    
+    
+    public GameObject partcleEfffect;
     // Start is called before the first frame update
 
     private MotionBlur motionBlur;
@@ -30,7 +34,7 @@ public class MotionBlurTest : MonoBehaviour
     {
         needAccerrate = false;
         currSpeed = 0.0f;
-        wheelAnimator = GetComponent<Animator>();
+        //wheelAnimator = GetComponent<Animator>();
         animatorCurrSpeed = 1.0f;
         globalVolume = GameObject.Find("GlobalVolume");
         var volume = globalVolume.GetComponent<Volume>();
@@ -51,6 +55,11 @@ public class MotionBlurTest : MonoBehaviour
 
         if (needAnimatorSpeed) 
         {
+            if (!wheelAnimator)
+            {
+                wheelAnimator = GameManager.getInstance.mainCharector.GetComponent<Animator>();
+            }
+
             wheelAnimator.speed = animatorCurrSpeed;
         }
        
@@ -67,6 +76,7 @@ public class MotionBlurTest : MonoBehaviour
         //motionBlur.active = (true);
         needAccerrate = true;
         virtualCam01.SetActive(true);
+        partcleEfffect.transform.localScale = new Vector3( 20.0f, 10.0f, 1.0f);
         while (time > 0) 
         {
             // speed up :
@@ -90,6 +100,8 @@ public class MotionBlurTest : MonoBehaviour
         }
         needAccerrate = false;
         currSpeed = 0.0f;
+        partcleEfffect.transform.localScale = new Vector3( 10.0f, 10.0f, 1.0f);
+
         //motionBlur.active = (false);
     }
 

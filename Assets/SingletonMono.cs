@@ -16,9 +16,18 @@ namespace Manager
         }
 		
         protected virtual void Awake() {
-            if (_instance != null) Debug.LogError(name + "error: already initialized", this);
-			
+            if (_instance != null)
+            {
+                Debug.LogError(name + "error: already initialized", this);
+                DestoryDuplicated();
+                Destroy(this);
+            }
             _instance = (T)this;
+        }
+
+        protected virtual void DestoryDuplicated()
+        {
+            
         }
 
         protected void OnDestroy()

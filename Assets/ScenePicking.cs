@@ -5,15 +5,16 @@ using System.Security.Cryptography;
 using Manager;
 using UnityEngine;
 
-public class CharecterPicking : MonoBehaviour
+public class ScenePicking : MonoBehaviour
 {
     // Start is called before the first frame update
     
-    public enum  CHARECTER
+    public enum  GameScene
     {
-        CharecterA = 0,
-        CharecterB = 1,
-        CharecterC = 2,
+        SceneA = 0,
+        SceneB = 1,
+        SceneC = 2,
+        SceneD = 3,
     }
 
 
@@ -28,13 +29,15 @@ public class CharecterPicking : MonoBehaviour
     private GameObject CharecterA;
     private GameObject CharecterB;
     private GameObject CharecterC;
+    private GameObject CharecterD;
 
-    public bool isInSelectedStage = false;
+    
+    // 这里的charecter应该是白边， 
+    public bool isInSelectedStage = true;
     public bool isButtonEnter = false;
-    public CHARECTER currCharector;
+    public GameScene currCharector;
     void Start()
     {
-        if(isInSelectedStage) 
         rootPanel = transform.Find("RootPanel")?.gameObject;
         if(!rootPanel) Debug.LogError("Root Panel is not exist!");
         selectedObjPanel = rootPanel.transform.Find("Selected")?.gameObject;
@@ -42,15 +45,15 @@ public class CharecterPicking : MonoBehaviour
         if(!selectedObjPanel || !unselectedObjPanel) Debug.LogError("unselectedObjPanel/selectedObjPanel Panel is not exist!");
         
         // set default one;
-        CharecterA = selectedObjPanel.transform.Find("CharecterA").gameObject;
-        CharecterB = selectedObjPanel.transform.Find("CharecterB").gameObject;
-        CharecterC = selectedObjPanel.transform.Find("CharecterC").gameObject;
+        CharecterA = unselectedObjPanel.transform.Find("CharecterA").gameObject;
+        CharecterB = unselectedObjPanel.transform.Find("CharecterB").gameObject;
+        CharecterC = unselectedObjPanel.transform.Find("CharecterC").gameObject;
+        CharecterD = unselectedObjPanel.transform.Find("CharecterD").gameObject;
 
         CharecterA.SetActive(false);
         CharecterC.SetActive(false);
-        currCharector = CHARECTER.CharecterB;
-
-        isInSelectedStage = false;
+        CharecterD.SetActive(false);
+        currCharector = GameScene.SceneB;
     }
 
     // Update is called once per frame
@@ -79,27 +82,36 @@ public class CharecterPicking : MonoBehaviour
 
             }
 
-            int length = Enum.GetNames(typeof(CHARECTER)).Length;
+            int length = Enum.GetNames(typeof(GameScene)).Length;
             currIndex = Mathf.Max(currIndex, 0);
             currIndex = Mathf.Min(currIndex, length - 1);
-            currCharector = (CHARECTER)currIndex;
+            currCharector = (GameScene)currIndex;
 
             switch (currCharector)
             {
-                case CHARECTER.CharecterA:
+                case GameScene.SceneA:
                         CharecterA.SetActive(true);
                         CharecterB.SetActive(false);
                         CharecterC.SetActive(false);
+                        CharecterD.SetActive(false);
                     break;
-                case CHARECTER.CharecterB:
+                case GameScene.SceneB:
                         CharecterA.SetActive(false);
                         CharecterB.SetActive(true);
                         CharecterC.SetActive(false);
+                        CharecterD.SetActive(false);
                     break;
-                case CHARECTER.CharecterC:
+                case GameScene.SceneC:
                         CharecterA.SetActive(false);
                         CharecterB.SetActive(false);
                         CharecterC.SetActive(true);
+                        CharecterD.SetActive(false);
+                    break;
+                case GameScene.SceneD:
+                    CharecterA.SetActive(false);
+                    CharecterB.SetActive(false);
+                    CharecterC.SetActive(false);
+                    CharecterD.SetActive(true);
                     break;
             }
 
@@ -114,10 +126,10 @@ public class CharecterPicking : MonoBehaviour
     IEnumerator PlayEnterGameEffect()
     {
         // play animation
-        GameManager.getInstance.SetPlayer(currCharector);
-        GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.Conversation0);
+        GameManager.getInstance.SetScene(currCharector);
         
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
+        GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.SelectCharector);
 
         var animator = GetComponent<Animator>();
         if (animator)
@@ -125,7 +137,7 @@ public class CharecterPicking : MonoBehaviour
             animator.SetTrigger("Disapear");
         }
 
-        yield return new WaitForSeconds(3.0f);
+        //yield return new WaitForSeconds(3.0f);
         rootPanel.SetActive(false);
     }
 }
