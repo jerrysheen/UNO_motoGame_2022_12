@@ -275,7 +275,7 @@ public class GameManager :  SingletonMono<GameManager>
                     }
                     var singleDialogue = dialogueMapData.mapData.Find(x => x.name == "CutScene00");
                     if (singleDialogue == null) return;
-                    UIManager.getInstance.Open<	UIDialoguePanel>(singleDialogue.singleDialogueData);
+                    StartCoroutine(DelayOpenDialogue(singleDialogue.singleDialogueData, 1.5f));
                     break;
                 case GuideProcedure.MotoMoveControl:
                     Debug.Log("Switch to moto ctrl");

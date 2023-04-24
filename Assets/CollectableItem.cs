@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using Manager;
 using UnityEngine;
 
@@ -18,13 +19,14 @@ public class CollectableItem : MonoBehaviour
     public Animator animator;
     public AudioClip soundEffect;
 
+    public bool isTriggerred = false;
 
     public bool disableAfterCollision = true;
     public float delayTime = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isTriggerred = false;
     }
 
     private void OnEnable()
@@ -44,6 +46,8 @@ public class CollectableItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isTriggerred) return;
+        isTriggerred = true;
         Debug.Log("Contact with Object");
         Debug.Log(other.gameObject.tag);
         Debug.Log(otherColliderName);

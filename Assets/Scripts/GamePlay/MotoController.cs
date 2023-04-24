@@ -18,6 +18,7 @@ public class MotoController : MonoBehaviour
     public float changeLaneTime;
     public MotoState motostate;
     public int currentLane = 0;
+    public AudioClip moveLineEffect;
     void Start()
     {
         motostate = MotoState.Changed;
@@ -51,7 +52,7 @@ public class MotoController : MonoBehaviour
         }
         if (motostate == MotoState.Changing) return;
         motostate = MotoState.Changing;
-
+        PlayMoveLineEffect(moveLineEffect);
         StartCoroutine(MoveToNextLane(keyboardValue, changeLaneTime));
     }
 
@@ -72,6 +73,18 @@ public class MotoController : MonoBehaviour
 
         currentLane = next;
         motostate = MotoState.Changed;
+    }
+
+    public void PlayMoveLineEffect(AudioClip currClip)
+    {
+        // 快速写法， 这边其实应该编写一个Instance 来继承
+       
+        var Go = GameObject.Find("OtherSound");
+        if (!Go) return;
+        AudioSource tempSource = Go.GetComponent<AudioSource>();
+        tempSource.clip = currClip;
+        tempSource.loop = false;
+        tempSource.Play();
     }
 
     private void FixedUpdate()

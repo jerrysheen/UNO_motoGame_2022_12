@@ -24,6 +24,8 @@ public class CharecterPicking : MonoBehaviour
     private GameObject rootPanel;
     private GameObject selectedObjPanel;
     private GameObject unselectedObjPanel;
+    public AudioClip selectedSound;
+    public AudioClip submitSound;
     
     private GameObject CharecterA;
     private GameObject CharecterB;
@@ -58,26 +60,32 @@ public class CharecterPicking : MonoBehaviour
     {
         if (isInSelectedStage)
         {
-            if (countDown > 0.0f)
-            {
-                countDown -= Time.deltaTime;
-                return;
-            }
+            // if (countDown > 0.0f)
+            // {
+            //     countDown -= Time.deltaTime;
+            //     return;
+            // }
 
             var currIndex = (int) currCharector;
             
             //if(in)
-            if (Input.GetAxis("Horizontal") < 0.0f)
+            if (Input.GetButtonDown("Horizontal"))
             {
-                currIndex -= 1;
-                countDown = unresponseTime;
-            }
-            else if (Input.GetAxis("Horizontal") > 0.0f)
-            {
-                currIndex += 1;
-                countDown = unresponseTime;
+                if (Input.GetAxis("Horizontal") < 0.0f)
+                {
+                    currIndex -= 1;
+                    //countDown = unresponseTime;
+                }
+                else if (Input.GetAxis("Horizontal") > 0.0f)
+                {
+                    currIndex += 1;
+                    //countDown = unresponseTime;
 
+                }
+                PlayAudioEffectOnce(selectedSound);
             }
+
+
 
             int length = Enum.GetNames(typeof(CHARECTER)).Length;
             currIndex = Mathf.Max(currIndex, 0);
@@ -105,8 +113,10 @@ public class CharecterPicking : MonoBehaviour
 
             if (Input.GetAxis("Submit") > 0.0f && !isButtonEnter)
             {
+                PlayAudioEffectOnce(submitSound);
                 StartCoroutine(PlayEnterGameEffect());
                 isButtonEnter = true;
+                isInSelectedStage = false;
             }
         }
     }
@@ -114,8 +124,7 @@ public class CharecterPicking : MonoBehaviour
     IEnumerator PlayEnterGameEffect()
     {
         // play animation
-        GameManager.getInstance.SetPlayer(currCharector);
-        GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.Conversation0);
+
         
         yield return null;
 
@@ -125,7 +134,21 @@ public class CharecterPicking : MonoBehaviour
             animator.SetTrigger("Disapear");
         }
 
-        yield return new WaitForSeconds(3.0f);
+        GameManager.getInstance.SetPlayer(currCharector);
+        GameManager.getInstance.SetGuideProcedure(GameManager.GuideProcedure.Conversation0);
+        yield return new WaitForSeconds(2.0f);
         rootPanel.SetActive(false);
+    }
+    
+    public void PlayAudioEffectOnce(AudioClip currClip)
+    {
+        // 快速写法， 这边其实应该编写一个Instance 来继承
+       
+        var Go = GameObject.Find("OtherSound");
+        if (!Go) return;
+        AudioSource tempSource = Go.GetComponent<AudioSource>();
+        tempSource.clip = currClip;
+        tempSource.loop = false;
+        tempSource.Play();
     }
 }

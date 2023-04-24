@@ -20,7 +20,8 @@ public class ScenePicking : MonoBehaviour
 
     public float unresponseTime = 0.5f;
     public float countDown = 0.0f;
-    
+    public AudioClip selectedSound;
+    public AudioClip submitSound;
 
     private GameObject rootPanel;
     private GameObject selectedObjPanel;
@@ -61,25 +62,30 @@ public class ScenePicking : MonoBehaviour
     {
         if (isInSelectedStage)
         {
-            if (countDown > 0.0f)
-            {
-                countDown -= Time.deltaTime;
-                return;
-            }
+            // if (countDown > 0.0f)
+            // {
+            //     countDown -= Time.deltaTime;
+            //     return;
+            // }
 
             var currIndex = (int) currCharector;
             
             //if(in)
-            if (Input.GetAxis("Horizontal") < 0.0f)
+            if (Input.GetButtonDown("Horizontal"))
             {
-                currIndex -= 1;
-                countDown = unresponseTime;
-            }
-            else if (Input.GetAxis("Horizontal") > 0.0f)
-            {
-                currIndex += 1;
-                countDown = unresponseTime;
+                if (Input.GetAxis("Horizontal") < 0.0f)
+                {
+                    currIndex -= 1;
+                    //countDown = unresponseTime;
+                }
+                else if (Input.GetAxis("Horizontal") > 0.0f)
+                {
+                    currIndex += 1;
+                    //countDown = unresponseTime;
 
+                }
+
+                PlayAudioEffectOnce(selectedSound);
             }
 
             int length = Enum.GetNames(typeof(GameScene)).Length;
@@ -117,8 +123,10 @@ public class ScenePicking : MonoBehaviour
 
             if (Input.GetAxis("Submit") > 0.0f && !isButtonEnter)
             {
+                PlayAudioEffectOnce(submitSound);
                 StartCoroutine(PlayEnterGameEffect());
                 isButtonEnter = true;
+                isInSelectedStage = false;
             }
         }
     }
@@ -139,5 +147,17 @@ public class ScenePicking : MonoBehaviour
 
         //yield return new WaitForSeconds(3.0f);
         rootPanel.SetActive(false);
+    }
+
+    public void PlayAudioEffectOnce(AudioClip currClip)
+    {
+        // 快速写法， 这边其实应该编写一个Instance 来继承
+       
+            var Go = GameObject.Find("OtherSound");
+            if (!Go) return;
+            AudioSource tempSource = Go.GetComponent<AudioSource>();
+            tempSource.clip = currClip;
+            tempSource.loop = false;
+            tempSource.Play();
     }
 }

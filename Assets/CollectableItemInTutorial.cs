@@ -15,10 +15,12 @@ public class CollectableItemInTutorial : MonoBehaviour
 
     public bool disableAfterCollision = true;
     public float delayTime = 1.0f;
+
+    public bool isTriggerred = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isTriggerred = false;
     }
 
     private void OnEnable()
@@ -38,6 +40,8 @@ public class CollectableItemInTutorial : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isTriggerred) return;
+        isTriggerred = true;
         Debug.Log("Contact with Object");
         Debug.Log(other.gameObject.tag);
         Debug.Log(otherColliderName);
